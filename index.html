@@ -1,0 +1,1949 @@
+<!DOCTYPE html>
+<html lang="ro" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<!-- PWA / iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="FODMAP">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="theme-color" content="#1e1a14">
+<meta name="application-name" content="FODMAP Plan">
+<meta name="description" content="Planificator săptămânal Low FODMAP · SII-D · Air Fryer">
+
+<!-- iOS touch icons (SVG emoji-based, inline data URIs) -->
+<link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%231e1a14'/><text x='90' y='125' font-size='100' text-anchor='middle'>🌿</text></svg>">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231e1a14'/><text x='16' y='24' font-size='20' text-anchor='middle'>🌿</text></svg>">
+
+<!-- Web App Manifest (inline via data URI) -->
+<link rel="manifest" href="data:application/manifest+json,{%22name%22:%22FODMAP%20Plan%20S%C4%83pt%C4%83m%C3%A2nal%22,%22short_name%22:%22FODMAP%22,%22description%22:%22Planificator%20s%C4%83pt%C4%83m%C3%A2nal%20Low%20FODMAP%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%231e1a14%22,%22theme_color%22:%22%231e1a14%22,%22orientation%22:%22portrait%22,%22icons%22:[{%22src%22:%22data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%231e1a14'/><text x='256' y='370' font-size='320' text-anchor='middle'>🌿</text></svg>%22,%22sizes%22:%22512x512%22,%22type%22:%22image/svg+xml%22,%22purpose%22:%22any%20maskable%22}]}">
+
+<title>FODMAP · Plan Săptămânal</title>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{--bej:#f2ede8;--bej-d:#e8e0d6;--bej-dd:#d5c9b8;--dark:#1e1a14;--dark2:#2c2416;--card:#fff;--body:#f2ede8;--text:#1e1a14;--t2:#5a4e42;--t3:#8a7a6a;--brd:#ddd0c0;--g:#3d6b4a;--gl:#eaf4ee;--gb:#afd4bc;--r:#b03535;--rl:#fdf0f0;--am:#b8720a;--al:#fdf3e4;--sh:0 2px 16px rgba(30,26,20,.07);--shl:0 8px 32px rgba(30,26,20,.13);--rsm:10px;--rmd:16px;--rlg:20px}
+[data-theme=dark]{--card:#26201a;--body:#1a1610;--text:#f0ebe4;--t2:#b8a898;--t3:#7a6a5a;--brd:#3a3028;--bej:#1a1610;--bej-d:#201c14;--bej-dd:#2a241a;--gl:#1a2e20;--gb:#2d5238;--rl:#2e1818;--al:#2a2010;--sh:0 2px 16px rgba(0,0,0,.3);--shl:0 8px 32px rgba(0,0,0,.4)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none}
+body{font-family:'DM Sans',sans-serif;background:var(--body);color:var(--text);min-height:100vh;font-size:16px;line-height:1.65;padding-bottom:calc(90px + env(safe-area-inset-bottom));transition:background .3s,color .3s;-webkit-text-size-adjust:100%}
+body.modal-open{position:fixed;width:100%;overflow-y:scroll}
+header{background:var(--dark);position:relative;overflow:hidden}
+.hbg{position:absolute;inset:0;background:radial-gradient(ellipse at 75% 40%,rgba(61,107,74,.2) 0%,transparent 55%),radial-gradient(ellipse at 15% 80%,rgba(45,95,128,.14) 0%,transparent 50%);pointer-events:none}
+.hi{position:relative;z-index:1;padding:22px 18px 18px}
+.hrow{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:18px}
+.hbadge{display:inline-flex;align-items:center;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:#9ed4b0;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:8px}
+h1{font-family:'Lora',serif;font-size:clamp(19px,5vw,27px);font-weight:700;color:#f0ebe4;line-height:1.2;margin-bottom:3px}
+h1 em{color:#7ec99a;font-style:normal}
+.hsub{font-size:12px;color:rgba(240,235,228,.42);font-weight:300}
+.hbtns{display:flex;gap:8px;flex-shrink:0}
+.dtoggle{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.13);color:#f0ebe4;border-radius:50%;width:44px;height:44px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:17px;transition:all .2s;touch-action:manipulation;-webkit-appearance:none}
+.dtoggle:hover{background:rgba(255,255,255,.16);transform:rotate(20deg)}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+@media(max-width:480px){.stats{grid-template-columns:repeat(3,1fr)}}
+.stat{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09);border-radius:10px;padding:9px 6px;text-align:center}
+.sv{font-family:'Lora',serif;font-size:17px;font-weight:700;color:#7ec99a;display:block;line-height:1}
+.sl{font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:rgba(240,235,228,.36);margin-top:3px}
+.avoid{background:rgba(176,53,53,.08);border-bottom:1px solid rgba(176,53,53,.15);padding:10px 18px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.avl{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);font-weight:600;flex-shrink:0}
+.avc{background:var(--rl);border:1px solid rgba(176,53,53,.2);color:var(--r);font-size:11px;padding:2px 9px;border-radius:20px;font-weight:500}
+main{max-width:840px;margin:0 auto;padding:18px 14px 20px}
+.tbar{position:sticky;top:0;z-index:100;background:var(--body);padding:10px 0 0;margin-bottom:20px;transition:background .3s}
+.tbar::after{content:'';display:block;height:1px;background:linear-gradient(to right,transparent,var(--brd),transparent);margin-top:10px}
+.tabs{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px}
+.tabs::-webkit-scrollbar{display:none}
+.tb{flex-shrink:0;background:var(--card);border:1px solid var(--brd);border-radius:10px;padding:10px 14px;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--t3);cursor:pointer;transition:all .2s;white-space:nowrap;touch-action:manipulation;-webkit-tap-highlight-color:transparent;-webkit-appearance:none}
+.tb:hover{background:var(--bej-d);color:var(--text);transform:translateY(-1px)}
+.tb.active{background:var(--dark2);color:#f0ebe4;border-color:var(--dark2);box-shadow:0 3px 12px rgba(30,26,20,.25)}
+[data-theme=dark] .tb.active{background:#7ec99a;color:#1a1610;border-color:#7ec99a}
+.panel{display:none}
+.panel.active{display:block;animation:pin .35s cubic-bezier(.16,1,.3,1)}
+@keyframes pin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.stitle{font-family:'Lora',serif;font-size:20px;font-weight:700;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.stitle::after{content:'';flex:1;height:1px;background:var(--brd)}
+.tip{background:var(--gl);border-left:3px solid var(--g);border-radius:0 var(--rsm) var(--rsm) 0;padding:13px 16px;margin-bottom:14px;font-size:14px;color:var(--t2);line-height:1.6}
+.tip strong{color:var(--text)}
+
+/* ── RECIPE BANK ── */
+.cat-filter{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:20px}
+.cf{background:var(--card);border:1px solid var(--brd);border-radius:20px;padding:7px 16px;font-size:13px;font-weight:600;color:var(--t3);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.cf:hover{background:var(--bej-d);color:var(--text)}
+.cf.on{background:var(--dark2);color:#f0ebe4;border-color:var(--dark2)}
+[data-theme=dark] .cf.on{background:#7ec99a;color:#1a1610;border-color:#7ec99a}
+.rgrid{display:grid;grid-template-columns:1fr;gap:16px}
+.rc{background:var(--card);border:1px solid var(--brd);border-radius:var(--rlg);overflow:hidden;box-shadow:var(--sh);transition:box-shadow .25s,transform .25s,background .3s,border-color .3s}
+.rc:hover{box-shadow:var(--shl);transform:translateY(-2px)}
+.rc[data-hidden=true]{display:none}
+.rphoto{width:100%;height:100px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.rphoto-inner{font-size:48px;transition:transform .4s ease}
+.rc:hover .rphoto-inner{transform:scale(1.1)}
+.rphoto::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,.14) 100%);pointer-events:none}
+.ph-mic{background:linear-gradient(135deg,#fdf0d8,#f5dfa8)}
+.ph-pr{background:linear-gradient(135deg,#dff0e8,#b8dfc8)}
+.ph-ci{background:linear-gradient(135deg,#dde8f5,#b8ccec)}
+[data-theme=dark] .ph-mic{background:linear-gradient(135deg,#2a2010,#3a2c10)}
+[data-theme=dark] .ph-pr{background:linear-gradient(135deg,#102018,#1a3022)}
+[data-theme=dark] .ph-ci{background:linear-gradient(135deg,#101828,#182038)}
+.af-badge{position:absolute;top:8px;right:8px;background:var(--dark2);color:#f0ebe4;font-size:10px;font-weight:700;padding:3px 9px;border-radius:20px;z-index:2}
+[data-theme=dark] .af-badge{background:#7ec99a;color:#1a1610}
+.rbody{padding:14px 16px 12px}
+.rtype{font-size:10px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;margin-bottom:3px}
+.rt-mic{color:#b8720a}.rt-pr{color:#3d6b4a}.rt-ci{color:#2d5f80}
+.rname{font-family:'Lora',serif;font-size:16px;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:6px}
+.rmeta{display:flex;align-items:center;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.rtime{font-size:12px;color:var(--t3);font-weight:500}
+.rcal{font-size:11px;font-weight:600;background:var(--al);color:var(--am);border:1px solid rgba(184,114,10,.2);padding:2px 9px;border-radius:20px}
+.rtags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px}
+.tg{background:var(--gl);color:var(--g);border:1px solid var(--gb)}
+.tr{background:var(--rl);color:var(--r);border:1px solid rgba(176,53,53,.2)}
+.ta{background:var(--al);color:var(--am);border:1px solid rgba(184,114,10,.2)}
+.rtoggle{display:flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--g);cursor:pointer;padding:8px 0 0;border-top:1px solid var(--brd);margin-top:4px;user-select:none}
+.rtoggle .arr{transition:transform .3s;font-size:10px}
+.rtoggle.open .arr{transform:rotate(180deg)}
+.rsteps{display:none;margin-top:12px;border-top:1px solid var(--brd);padding-top:12px}
+.rsteps.open{display:block;animation:sin .28s ease}
+@keyframes sin{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.step{display:flex;gap:10px;margin-bottom:10px;align-items:flex-start}
+.snum{width:22px;height:22px;border-radius:50%;background:var(--dark2);color:#f0ebe4;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+[data-theme=dark] .snum{background:#7ec99a;color:#1a1610}
+.stxt{font-size:13.5px;color:var(--t2);line-height:1.6}
+.stxt strong{color:var(--text)}
+.af-box{background:var(--dark2);border-radius:var(--rsm);padding:9px 13px;margin-top:9px;font-size:12px;color:rgba(240,235,228,.9)}
+[data-theme=dark] .af-box{background:#2a2418;border:1px solid var(--brd)}
+.af-box strong{color:#7ec99a}
+.tbtn{display:inline-flex;align-items:center;gap:6px;background:var(--dark2);color:#f0ebe4;border:none;border-radius:var(--rsm);padding:7px 13px;font-size:12px;font-weight:600;cursor:pointer;margin-top:9px;transition:all .2s;font-family:'DM Sans',sans-serif}
+[data-theme=dark] .tbtn{background:#7ec99a;color:#1a1610}
+.tdisp{font-size:20px;font-family:'Lora',serif;font-weight:700;color:var(--g);margin-top:9px;display:none;align-items:center;gap:10px}
+.tdisp.run{display:flex}
+.tstop{background:var(--r);color:#fff;border:none;border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* ── WEEKLY PLANNER ── */
+.week-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.week-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn-clear{background:var(--rl);border:1px solid rgba(176,53,53,.25);color:var(--r);border-radius:var(--rsm);padding:8px 16px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s}
+.btn-clear:hover{background:var(--r);color:#fff}
+.week-summary{background:var(--dark);border-radius:var(--rlg);padding:18px 20px;margin-bottom:20px;color:#f0ebe4;position:relative;overflow:hidden}
+.week-summary::before{content:'📊';position:absolute;right:16px;top:10px;font-size:44px;opacity:.1}
+.week-summary h3{font-family:'Lora',serif;font-size:15px;color:#7ec99a;margin-bottom:12px}
+.sum-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:480px){.sum-grid{grid-template-columns:repeat(2,1fr)}}
+.sum-item{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--rsm);padding:10px 12px;text-align:center}
+.sum-val{font-family:'Lora',serif;font-size:18px;font-weight:700;color:#7ec99a;display:block}
+.sum-lbl{font-size:10px;text-transform:uppercase;letter-spacing:.09em;color:rgba(240,235,228,.4);margin-top:2px}
+.day-card{background:var(--card);border:1px solid var(--brd);border-radius:var(--rlg);overflow:hidden;margin-bottom:14px;box-shadow:var(--sh);transition:background .3s,border-color .3s}
+.day-header{background:var(--dark2);color:#f0ebe4;padding:12px 18px;display:flex;align-items:center;justify-content:space-between}
+[data-theme=dark] .day-header{background:#2a2418;border-bottom:1px solid var(--brd)}
+.day-name{font-family:'Lora',serif;font-size:16px;font-weight:700}
+.day-kcal{font-size:12px;color:rgba(240,235,228,.5);font-weight:500}
+.day-kcal span{color:#7ec99a;font-weight:700}
+.meal-row{padding:13px 16px;border-bottom:1px solid var(--bej-d);display:flex;align-items:center;gap:12px}
+.meal-row:last-child{border-bottom:none}
+.meal-icon{font-size:18px;flex-shrink:0;width:28px;text-align:center}
+.meal-info{flex:1;min-width:0}
+.meal-label{font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:2px}
+.meal-chosen{font-size:14px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.meal-chosen.empty{color:var(--t3);font-weight:400;font-style:italic;font-size:13px}
+.meal-kcal-badge{font-size:11px;color:var(--am);font-weight:600;background:var(--al);border:1px solid rgba(184,114,10,.2);padding:1px 7px;border-radius:10px;flex-shrink:0}
+.meal-btn{background:var(--bej-d);border:1px solid var(--brd);border-radius:var(--rsm);padding:10px 14px;font-size:12px;font-weight:600;color:var(--t2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;flex-shrink:0;touch-action:manipulation;-webkit-appearance:none;min-height:44px}
+.meal-btn:hover{background:var(--dark2);color:#f0ebe4;border-color:var(--dark2)}
+[data-theme=dark] .meal-btn:hover{background:#7ec99a;color:#1a1610}
+.meal-btn.set{background:var(--gl);border-color:var(--gb);color:var(--g)}
+
+/* ── MEAL PICKER MODAL ── */
+.modal-overlay{position:fixed;inset:0;background:rgba(30,26,20,.6);z-index:500;display:flex;align-items:flex-end;justify-content:center;padding:0;opacity:0;pointer-events:none;transition:opacity .25s;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--card);border-radius:24px 24px 0 0;width:100%;max-width:620px;max-height:85vh;max-height:85dvh;overflow:hidden;display:flex;flex-direction:column;transform:translateY(100%);transition:transform .35s cubic-bezier(.16,1,.3,1);padding-bottom:env(safe-area-inset-bottom)}
+.modal-overlay.open .modal-box{transform:translateY(0)}
+.modal-head{padding:18px 20px 14px;border-bottom:1px solid var(--brd);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.modal-title{font-family:'Lora',serif;font-size:17px;font-weight:700;color:var(--text)}
+.modal-subtitle{font-size:12px;color:var(--t3);margin-top:2px}
+.modal-close{width:44px;height:44px;border-radius:50%;background:var(--bej-d);border:none;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--t2);transition:all .2s;touch-action:manipulation;-webkit-appearance:none;flex-shrink:0}
+.modal-close:hover{background:var(--bej-dd)}
+.modal-body{overflow-y:auto;-webkit-overflow-scrolling:touch;overscroll-behavior:contain;padding:16px 20px;flex:1}
+.modal-recipe-list{display:flex;flex-direction:column;gap:8px}
+.modal-recipe-item{display:flex;align-items:center;gap:12px;padding:14px;border-radius:var(--rmd);border:1px solid var(--brd);cursor:pointer;transition:all .2s;background:var(--card);-webkit-tap-highlight-color:transparent;touch-action:manipulation;min-height:60px}
+.modal-recipe-item:hover{background:var(--bej);border-color:var(--bej-dd);transform:translateX(3px)}
+.modal-recipe-item.selected{background:var(--gl);border-color:var(--gb)}
+.mri-emoji{font-size:26px;flex-shrink:0}
+.mri-info{flex:1;min-width:0}
+.mri-name{font-family:'Lora',serif;font-size:14px;font-weight:700;color:var(--text);line-height:1.2}
+.mri-meta{font-size:11px;color:var(--t3);margin-top:2px}
+.mri-kcal{font-size:12px;font-weight:700;color:var(--am);flex-shrink:0}
+.modal-footer{padding:14px 20px;border-top:1px solid var(--brd);display:flex;gap:10px;flex-shrink:0;flex-wrap:nowrap}
+.btn-confirm{flex:1;background:var(--dark2);color:#f0ebe4;border:none;border-radius:var(--rsm);padding:15px 13px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;touch-action:manipulation;min-height:50px;-webkit-appearance:none}
+.btn-confirm:hover{opacity:.85}
+[data-theme=dark] .btn-confirm{background:#7ec99a;color:#1a1610}
+.btn-remove{background:var(--rl);border:1px solid rgba(176,53,53,.2);color:var(--r);border-radius:var(--rsm);padding:15px 18px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;touch-action:manipulation;min-height:50px;-webkit-appearance:none}
+.btn-remove:hover{background:var(--r);color:#fff}
+
+/* ── POKE MODAL ── */
+.poke-modal-section{margin-bottom:18px}
+.poke-modal-section h4{font-family:'Lora',serif;font-size:14px;font-weight:700;color:var(--text);margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--brd)}
+.poke-opts{display:flex;flex-wrap:wrap;gap:7px}
+.poke-opt{background:var(--bej-d);border:1px solid var(--brd);border-radius:20px;padding:10px 14px;font-size:13px;font-weight:500;color:var(--t2);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;touch-action:manipulation;-webkit-appearance:none;min-height:40px}
+.poke-opt:hover{background:var(--bej-dd)}
+.poke-opt.sel{background:var(--dark2);color:#f0ebe4;border-color:var(--dark2)}
+[data-theme=dark] .poke-opt.sel{background:#7ec99a;color:#1a1610;border-color:#7ec99a}
+.poke-kcal-preview{background:var(--al);border:1px solid rgba(184,114,10,.2);border-radius:var(--rsm);padding:10px 14px;margin-top:14px;font-size:14px;color:var(--am);font-weight:600;text-align:center}
+
+/* ── SHOPPING LIST ── */
+.shop-hrow{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:10px;flex-wrap:wrap}
+.sfbtn{background:var(--card);border:1px solid var(--brd);border-radius:var(--rsm);padding:7px 14px;font-size:12px;font-weight:600;color:var(--t2);cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.sfbtn.on{background:var(--dark2);color:#f0ebe4;border-color:var(--dark2)}
+[data-theme=dark] .sfbtn.on{background:#7ec99a;color:#1a1610}
+.scat{background:var(--card);border:1px solid var(--brd);border-radius:var(--rmd);overflow:hidden;margin-bottom:13px;box-shadow:var(--sh)}
+.scath{background:var(--dark2);color:#f0ebe4;padding:11px 17px;font-family:'Lora',serif;font-size:15px;font-weight:700}
+[data-theme=dark] .scath{background:#2a2418;border-bottom:1px solid var(--brd)}
+.sitem{display:flex;align-items:center;gap:12px;padding:12px 17px;border-bottom:1px solid var(--bej-d);cursor:pointer;transition:background .15s}
+.sitem:last-of-type{border-bottom:none}
+.sitem:hover{background:var(--bej)}
+.sitem.chk{background:var(--gl)}
+.sitem.chk .sit{text-decoration:line-through;color:var(--t3)}
+.scb{width:22px;height:22px;border-radius:6px;border:2px solid var(--brd);flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:12px;transition:all .18s;background:var(--card)}
+.sitem.chk .scb{background:var(--g);border-color:var(--g);color:#fff}
+.sit{font-size:14px;color:var(--text);flex:1}
+.siq{font-size:12px;color:var(--t3);font-weight:500;white-space:nowrap}
+.sprog{padding:9px 17px;background:var(--bej-d);border-top:1px solid var(--brd);display:flex;align-items:center;gap:9px;font-size:11px;color:var(--t3)}
+.pout{flex:1;height:4px;background:var(--bej-dd);border-radius:4px;overflow:hidden}
+.pin{height:100%;background:var(--g);border-radius:4px;transition:width .3s ease}
+.shop-empty{text-align:center;padding:40px 20px;color:var(--t3)}
+.shop-empty .se-icon{font-size:48px;display:block;margin-bottom:12px}
+.shop-empty p{font-size:14px;line-height:1.6}
+
+/* ── JOURNAL ── */
+.jday{background:var(--card);border:1px solid var(--brd);border-radius:var(--rmd);padding:17px 19px;margin-bottom:13px;box-shadow:var(--sh)}
+.jday h4{font-family:'Lora',serif;font-size:15px;font-weight:700;margin-bottom:11px;color:var(--text)}
+.jtxt{width:100%;min-height:75px;resize:vertical;border:1px solid var(--brd);border-radius:var(--rsm);padding:9px 12px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);background:var(--body);line-height:1.6;transition:border-color .2s,background .3s,color .3s;margin-bottom:9px}
+.jtxt:focus{outline:none;border-color:var(--g)}
+.symrow{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:9px}
+.sym{background:var(--bej-d);border:1px solid var(--brd);border-radius:20px;padding:9px 12px;font-size:12px;font-weight:500;color:var(--t2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .18s;touch-action:manipulation;-webkit-appearance:none;min-height:38px}
+.sym.sg{background:var(--gl);color:var(--g);border-color:var(--gb)}
+.sym.sy{background:var(--al);color:var(--am);border-color:rgba(184,114,10,.3)}
+.sym.sr{background:var(--rl);color:var(--r);border-color:rgba(176,53,53,.3)}
+.jsave{background:var(--dark2);color:#f0ebe4;border:none;border-radius:var(--rsm);padding:12px 17px;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;touch-action:manipulation;-webkit-appearance:none;min-height:44px}
+[data-theme=dark] .jsave{background:#7ec99a;color:#1a1610}
+.sok{font-size:12px;color:var(--g);font-weight:600;margin-left:10px;opacity:0;transition:opacity .3s}
+
+/* ── OTHER TABS ── */
+.fitem{border-bottom:1px solid var(--brd)}
+.fq{display:flex;align-items:center;justify-content:space-between;padding:15px 0;cursor:pointer;gap:12px;font-weight:600;font-size:15px;color:var(--text);user-select:none}
+.fa2{font-size:11px;color:var(--t3);flex-shrink:0;transition:transform .3s}
+.fitem.open .fa2{transform:rotate(180deg)}
+.fa{display:none;padding:0 0 15px;font-size:14px;color:var(--t2);line-height:1.7}
+.fitem.open .fa{display:block;animation:sin .25s ease}
+.rescard{background:var(--card);border:1px solid var(--brd);border-radius:var(--rmd);padding:17px 19px;margin-bottom:11px;box-shadow:var(--sh)}
+.rescard h4{font-family:'Lora',serif;font-size:16px;font-weight:700;margin-bottom:9px;color:var(--text)}
+.rok{font-size:13.5px;color:var(--g);margin-bottom:4px}
+.rno{font-size:13.5px;color:var(--r)}
+.rcard{background:var(--card);border:1px solid var(--brd);border-radius:var(--rsm);padding:15px 17px;margin-bottom:10px;box-shadow:var(--sh);display:flex;gap:13px;align-items:flex-start;transition:background .3s,border-color .3s}
+.rico{font-size:21px;flex-shrink:0}
+.rtx h4{font-family:'Lora',serif;font-size:15px;font-weight:700;margin-bottom:3px;color:var(--text)}
+.rtx p{font-size:13.5px;color:var(--t2);line-height:1.55}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+@media(max-width:480px){.g2{grid-template-columns:1fr}}
+.cg{display:flex;align-items:center;gap:8px;background:var(--gl);border:1px solid var(--gb);border-radius:var(--rsm);padding:9px 13px;font-size:13px;color:var(--g);font-weight:500}
+.cr{display:flex;align-items:center;gap:8px;background:var(--rl);border:1px solid rgba(176,53,53,.2);border-radius:var(--rsm);padding:9px 13px;font-size:13px;color:var(--r);font-weight:500}
+.icard{background:var(--dark);border-radius:var(--rlg);padding:20px 22px;color:#f0ebe4;margin-bottom:18px;position:relative;overflow:hidden}
+.icard::before{content:attr(data-deco);position:absolute;right:16px;top:12px;font-size:50px;opacity:.12;line-height:1}
+.icard h3{font-family:'Lora',serif;font-size:16px;font-weight:700;color:#7ec99a;margin-bottom:11px}
+.icard p{font-size:13.5px;color:rgba(240,235,228,.78);line-height:1.65;margin-bottom:9px}
+.irow{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:var(--rsm);padding:11px 13px;margin-bottom:8px;font-size:13px;color:rgba(240,235,228,.85);line-height:1.55}
+.irow strong{color:#7ec99a}
+.bmibox{background:var(--al);border:1px solid rgba(184,114,10,.2);border-radius:var(--rmd);padding:15px 17px;margin-bottom:16px}
+.bmibox h4{font-family:'Lora',serif;font-size:15px;font-weight:700;color:var(--am);margin-bottom:6px}
+.bmibox p{font-size:13.5px;color:var(--t2);line-height:1.6}
+
+/* ── BOTTOM NAV ── */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:200;background:var(--card);border-top:1px solid var(--brd);display:flex;overflow-x:auto;scrollbar-width:none;box-shadow:0 -4px 20px rgba(30,26,20,.1);transition:background .3s;padding-bottom:env(safe-area-inset-bottom)}
+.bnav::-webkit-scrollbar{display:none}
+.nb{flex:1;min-width:55px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:9px 5px 11px;cursor:pointer;border:none;background:transparent;font-family:'DM Sans',sans-serif;transition:background .18s;touch-action:manipulation;-webkit-tap-highlight-color:transparent}
+.nb:hover,.nb.active{background:var(--bej-d)}
+.ni{font-size:17px;line-height:1}
+.nl{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--t3)}
+.nb.active .nl{color:var(--g)}
+
+/* ── CONFIRM DIALOG ── */
+.confirm-overlay{position:fixed;inset:0;background:rgba(30,26,20,.6);z-index:600;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .2s;backdrop-filter:blur(4px)}
+.confirm-overlay.open{opacity:1;pointer-events:all}
+.confirm-box{background:var(--card);border-radius:var(--rlg);padding:28px 24px;max-width:360px;width:100%;text-align:center;transform:scale(.92);transition:transform .25s cubic-bezier(.16,1,.3,1)}
+.confirm-overlay.open .confirm-box{transform:scale(1)}
+.confirm-box h3{font-family:'Lora',serif;font-size:18px;font-weight:700;color:var(--text);margin-bottom:10px}
+.confirm-box p{font-size:14px;color:var(--t2);margin-bottom:22px;line-height:1.6}
+.confirm-btns{display:flex;gap:10px}
+.cbtn-yes{flex:1;background:var(--r);color:#fff;border:none;border-radius:var(--rsm);padding:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+.cbtn-no{flex:1;background:var(--bej-d);border:1px solid var(--brd);color:var(--text);border-radius:var(--rsm);padding:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif}
+
+/* ── iOS ACTIVE STATES ── */
+@media (hover: none) {
+  .modal-recipe-item:active{background:var(--bej);border-color:var(--bej-dd);transform:scale(0.98)}
+  .poke-opt:active{opacity:.75;transform:scale(0.96)}
+  .btn-confirm:active:not(:disabled){opacity:.75;transform:scale(0.98)}
+  .btn-remove:active{opacity:.75;transform:scale(0.98)}
+  .nb:active{background:var(--bej-d)}
+  .tb:active{background:var(--bej-d)}
+  .modal-close:active{background:var(--bej-dd)}
+  .modal-recipe-item:hover{transform:none}
+}
+/* Fix disabled button on iOS */
+.btn-confirm:disabled{opacity:.4;pointer-events:none}
+/* Ensure modal body is scrollable on iOS */
+.modal-body{-webkit-overflow-scrolling:touch}
+
+/* ── PPT BUTTON (hidden - removed feature) ── */
+.pdf-fab{display:none!important}
+
+/* ── iOS INSTALL BANNER ── */
+.ios-install-banner{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom) + 10px);left:14px;right:14px;z-index:400;background:var(--dark2);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 8px 32px rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.08);animation:slideUp .4s cubic-bezier(.16,1,.3,1)}
+.ios-install-banner.hidden{display:none}
+@keyframes slideUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.iib-icon{font-size:32px;flex-shrink:0}
+.iib-text{flex:1;min-width:0}
+.iib-title{font-size:13px;font-weight:700;color:#f0ebe4;line-height:1.2;margin-bottom:2px}
+.iib-sub{font-size:11px;color:rgba(240,235,228,.55);line-height:1.4}
+.iib-sub strong{color:#7ec99a}
+.iib-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.1);border:none;color:rgba(240,235,228,.6);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'DM Sans',sans-serif}
+
+/* ── RECIPE EXPAND IN PLAN ── */
+.meal-recipe-expand{display:none;background:var(--gl);border-top:1px solid var(--gb);padding:12px 16px;font-size:13px;color:var(--t2);line-height:1.65;animation:sin .25s ease}
+.meal-recipe-expand.open{display:block}
+.meal-expand-btn{background:none;border:none;color:var(--g);font-size:11px;font-weight:700;cursor:pointer;padding:0;font-family:'DM Sans',sans-serif;display:inline-flex;align-items:center;gap:4px;margin-top:4px;text-transform:uppercase;letter-spacing:.07em}
+.meal-expand-btn .arr{display:inline-block;transition:transform .25s;font-size:9px}
+.meal-expand-btn.open .arr{transform:rotate(180deg)}
+.expand-step{display:flex;gap:8px;margin-bottom:7px;align-items:flex-start}
+.expand-snum{width:18px;height:18px;border-radius:50%;background:var(--g);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+.expand-ing{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:8px}
+.expand-ing-item{background:var(--card);border:1px solid var(--brd);border-radius:20px;padding:2px 9px;font-size:11px;color:var(--t2)}
+.expand-section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g);margin-bottom:6px;margin-top:2px}
+.expand-af-note{background:var(--dark2);color:#f0ebe4;border-radius:var(--rsm);padding:7px 11px;margin-top:6px;font-size:11px}
+[data-theme=dark] .expand-af-note{background:#2a2418;border:1px solid var(--brd)}
+
+/* ── PRINT / PDF STYLES ── */
+@media print {
+  *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  body{background:#fff!important;color:#111!important;padding:0!important;font-size:11pt;line-height:1.5}
+  header,.tbar,.bnav,.pdf-fab,.modal-overlay,.confirm-overlay,.avoid,
+  #tab-cumparaturi,#tab-banca,#tab-jurnal,#tab-reguli,#tab-faq,#tab-restaurant,#tab-info{display:none!important}
+  main{max-width:100%;padding:0;margin:0}
+  .panel{display:block!important}
+  #tab-saptamana{display:block!important}
+  .print-only{display:block!important}
+  .no-print{display:none!important}
+  .no-print{display:none!important}
+
+  /* Page setup */
+  @page{margin:15mm 12mm;size:A4 portrait}
+  @page:first{margin-top:10mm}
+
+  /* Print header */
+  .print-header{display:block!important;text-align:center;margin-bottom:12mm;padding-bottom:6mm;border-bottom:2pt solid #3d6b4a}
+  .print-header h1{font-size:20pt;font-weight:700;color:#1e1a14;margin-bottom:2mm}
+  .print-header p{font-size:10pt;color:#5a4e42}
+
+  /* Day cards */
+  .day-card{break-inside:avoid;border:1pt solid #ddd0c0!important;border-radius:8pt!important;margin-bottom:6mm!important;box-shadow:none!important;page-break-inside:avoid}
+  .day-header{background:#2c2416!important;color:#fff!important;padding:7pt 12pt!important;border-radius:6pt 6pt 0 0!important}
+  .day-name{font-size:13pt!important;font-weight:700}
+  .day-kcal{font-size:9pt!important;color:#9ed4b0!important}
+
+  /* Meal rows */
+  .meal-row{padding:8pt 12pt!important;border-bottom:0.5pt solid #e8e0d6!important}
+  .meal-icon{font-size:14pt!important}
+  .meal-label{font-size:8pt!important}
+  .meal-chosen{font-size:11pt!important;font-weight:600}
+  .meal-kcal-badge{font-size:9pt!important;background:#fdf3e4!important;color:#b8720a!important;border:0.5pt solid rgba(184,114,10,.3)!important;padding:1pt 6pt!important;border-radius:10pt!important}
+  .meal-btn{display:none!important}
+
+  /* Summary */
+  .week-summary{background:#1e1a14!important;color:#f0ebe4!important;break-inside:avoid;border-radius:8pt!important;page-break-inside:avoid}
+  .sum-val{color:#7ec99a!important}
+
+  /* Recipe detail print section */
+  .print-recipes{display:block!important;margin-top:8mm}
+  .print-recipe-card{break-inside:avoid;page-break-inside:avoid;border:1pt solid #ddd0c0;border-radius:8pt;margin-bottom:7mm;padding:10pt 12pt;background:#fff}
+  .print-recipe-title{font-size:14pt;font-weight:700;color:#1e1a14;margin-bottom:3mm}
+  .print-recipe-meta{font-size:9pt;color:#5a4e42;margin-bottom:3mm;display:flex;gap:8pt;flex-wrap:wrap}
+  .print-recipe-meta span{background:#f2ede8;padding:1pt 6pt;border-radius:4pt}
+  .print-recipe-meta .kcal-badge{background:#fdf3e4;color:#b8720a}
+  .print-ingredients{margin-bottom:4mm}
+  .print-ingredients h4,.print-steps h4{font-size:10pt;font-weight:700;color:#3d6b4a;margin-bottom:2mm;text-transform:uppercase;letter-spacing:0.05em}
+  .print-ing-grid{display:grid;grid-template-columns:1fr 1fr;gap:1mm 6mm}
+  .print-ing-item{font-size:9.5pt;color:#2c2416;padding:1pt 0;border-bottom:0.3pt solid #e8e0d6}
+  .print-ing-item strong{color:#3d6b4a}
+  .print-steps ol{margin:0;padding-left:14pt}
+  .print-steps li{font-size:9.5pt;color:#2c2416;margin-bottom:2mm;line-height:1.5}
+  .print-steps li strong{color:#1e1a14}
+  .print-af-note{background:#1e1a14;color:#f0ebe4;border-radius:4pt;padding:4pt 8pt;margin-top:3mm;font-size:9pt}
+  .print-af-note strong{color:#7ec99a}
+
+  /* Shopping list */
+  .print-shop{display:block!important;margin-top:8mm;break-before:page;page-break-before:always}
+  .print-shop-title{font-size:16pt;font-weight:700;color:#1e1a14;margin-bottom:4mm;padding-bottom:3mm;border-bottom:2pt solid #3d6b4a}
+  .print-shop-cat{margin-bottom:5mm;break-inside:avoid;page-break-inside:avoid}
+  .print-shop-cat-title{font-size:11pt;font-weight:700;color:#fff;background:#2c2416;padding:4pt 10pt;border-radius:4pt;margin-bottom:2mm}
+  .print-shop-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.5mm 8mm}
+  .print-shop-item{font-size:9.5pt;color:#2c2416;padding:2pt 0;border-bottom:0.3pt solid #e8e0d6;display:flex;justify-content:space-between;align-items:center}
+  .print-shop-item::before{content:'☐';margin-right:4pt;color:#3d6b4a;font-size:10pt}
+  .print-shop-qty{color:#8a7a6a;font-size:9pt}
+  .print-section-title{font-size:16pt;font-weight:700;color:#1e1a14;margin:8mm 0 4mm;padding-bottom:3mm;border-bottom:2pt solid #3d6b4a;break-before:page;page-break-before:always}
+}
+
+/* Print sections - hidden normally, shown when printing */
+.print-recipes,.print-shop{display:none}
+.print-header{display:none}
+</style>
+</head>
+<body>
+
+<!-- PRINT HEADER (visible only when printing) -->
+<div class="print-header" style="display:none">
+  <h1>🌿 Plan Low FODMAP Săptămânal</h1>
+  <p>SII-D · Air Fryer · Fără gluten · Fără lactoză · Generat automat din planificatorul tău</p>
+</div>
+
+<!-- iOS INSTALL BANNER -->
+<div class="ios-install-banner hidden" id="ios-banner">
+  <div class="iib-icon">🌿</div>
+  <div class="iib-text">
+    <div class="iib-title">Instalează ca aplicație</div>
+    <div class="iib-sub">Apasă <strong>⬆ Share</strong> → <strong>Add to Home Screen</strong> și funcționează ca o aplicație reală</div>
+  </div>
+  <button class="iib-close" onclick="dismissInstallBanner()">✕</button>
+</div>
+
+<!-- PPT FAB (kept in DOM for JS compatibility) -->
+<button class="pdf-fab" id="pdf-fab" style="display:none"></button>
+
+<header>
+  <div class="hbg"></div>
+  <div class="hi">
+    <div class="hrow">
+      <div>
+        <div class="hbadge">🌿 Low FODMAP · Planificator Săptămânal</div>
+        <h1>Plan <em>FODMAP</em> Săptămânal</h1>
+        <p class="hsub">SII-D · Air Fryer · Fără gluten · Fără lactoză · 32 Rețete</p>
+      </div>
+      <div class="hbtns">
+        <button class="dtoggle" onclick="toggleDark()">🌙</button>
+      </div>
+    </div>
+    <div class="stats">
+      <div class="stat"><span class="sv" id="stat-kcal">0</span><span class="sl">kcal/săpt.</span></div>
+      <div class="stat"><span class="sv" id="stat-meals">0</span><span class="sl">Mese plan.</span></div>
+      <div class="stat"><span class="sv" id="stat-af">0</span><span class="sl">Mese AF🔥</span></div>
+      <div class="stat"><span class="sv" id="stat-avg">—</span><span class="sl">kcal/zi</span></div>
+      <div class="stat"><span class="sv">32</span><span class="sl">Rețete</span></div>
+    </div>
+  </div>
+</header>
+<div class="avoid">
+  <span class="avl">❌ Evită:</span>
+  <span class="avc">Ceapă & Usturoi</span><span class="avc">Lactate</span><span class="avc">Gluten</span>
+  <span class="avc">Leguminoase</span><span class="avc">Varză/Broccoli</span><span class="avc">Mere/Pere/Piersici</span>
+  <span class="avc">Picant</span><span class="avc">Alcool</span><span class="avc">Soia/Tofu</span><span class="avc">Vită</span>
+</div>
+<main>
+  <div class="tbar">
+    <div class="tabs">
+      <button class="tb active" data-tab="plan">📅 Plan Săptămână</button>
+      <button class="tb" data-tab="cumparaturi">🛒 Cumpărături</button>
+      <button class="tb" data-tab="banca">🍽️ Rețete</button>
+      <button class="tb" data-tab="jurnal">📓 Jurnal</button>
+      <button class="tb" data-tab="reguli">📋 Reguli</button>
+      <button class="tb" data-tab="faq">❓ FAQ</button>
+      <button class="tb" data-tab="restaurant">🍽️ Restaurant</button>
+      <button class="tb" data-tab="info">💪 Info & AF</button>
+    </div>
+  </div>
+
+  <!-- PLAN SAPTAMANAL -->
+  <div id="tab-plan" class="panel active">
+    <div class="week-header">
+      <div class="stitle" style="margin-bottom:0;flex:1">📅 Plan Săptămânal</div>
+      <div class="week-actions">
+        <button class="btn-clear" onclick="confirmClear()">🗑️ Șterge săptămâna</button>
+      </div>
+    </div>
+    <div class="tip">💡 <strong>Cum funcționează:</strong> Apasă pe <strong>+ Alege</strong> lângă fiecare masă și selectează rețeta. Lista de cumpărături se generează automat din ce planifici. Dacă alegi un Poke Bowl, vei putea personaliza ingredientele.</div>
+
+    <div class="week-summary">
+      <h3>📊 Sumar Săptămână</h3>
+      <div class="sum-grid">
+        <div class="sum-item"><span class="sum-val" id="sum-kcal">0</span><span class="sum-lbl">Total kcal</span></div>
+        <div class="sum-item"><span class="sum-val" id="sum-avg">—</span><span class="sum-lbl">Media kcal/zi</span></div>
+        <div class="sum-item"><span class="sum-val" id="sum-af">0</span><span class="sum-lbl">Mese AF 🔥</span></div>
+        <div class="sum-item"><span class="sum-val" id="sum-meals">0/21</span><span class="sum-lbl">Mese planificate</span></div>
+      </div>
+    </div>
+
+    <div id="week-days"></div>
+  </div>
+
+  <!-- CUMPARATURI -->
+  <div id="tab-cumparaturi" class="panel">
+    <div class="stitle">🛒 Lista de Cumpărături</div>
+    <div id="shop-content"></div>
+  </div>
+
+  <!-- BANCA DE RETETE -->
+  <div id="tab-banca" class="panel">
+    <div class="stitle">🍽️ Bancă de Rețete</div>
+    <div class="tip">💡 Toate proteinele animale sunt la <strong>Air Fryer 🔥</strong>. Apasă pe o rețetă ca să vezi pașii completi.</div>
+    <div class="cat-filter">
+      <button class="cf on" data-cat="all" onclick="filterCat(this,'all')">🍽️ Toate (32)</button>
+      <button class="cf" data-cat="mic" onclick="filterCat(this,'mic')">🌅 Mic dejun (10)</button>
+      <button class="cf" data-cat="pranz" onclick="filterCat(this,'pranz')">☀️ Prânz (11)</button>
+      <button class="cf" data-cat="cina" onclick="filterCat(this,'cina')">🌙 Cină (11)</button>
+    </div>
+    <div class="rgrid" id="recipe-grid"></div>
+  </div>
+
+  <!-- JURNAL -->
+  <div id="tab-jurnal" class="panel">
+    <div class="stitle">📓 Jurnal Simptome</div>
+    <div class="tip">💡 Completează zilnic după ultima masă. Arată jurnalul medicului — e cel mai util instrument în SII.</div>
+    <div id="journal-container"></div>
+  </div>
+
+  <!-- REGULI -->
+  <div id="tab-reguli" class="panel">
+    <div class="stitle">📋 Alimente Safe & Interzise</div>
+    <div class="g2" id="reguli-content"></div>
+    <div class="stitle" style="font-size:17px">📌 Reguli de Aur</div>
+    <div class="rcard"><div class="rico">🔥</div><div class="rtx"><h4>Air Fryer: preîncălzire obligatorie</h4><p>3 minute la temperatura setată înainte de orice. Tamponează carnea cu prosop înainte — rezultat crocant garantat.</p></div></div>
+    <div class="rcard"><div class="rico">🔬</div><div class="rtx"><h4>Faza de eliminare = minim 6 săptămâni</h4><p>Nu reintroduce nimic din lista roșie. După 6 săptămâni, reintroduci câte un aliment la 3 zile.</p></div></div>
+    <div class="rcard"><div class="rico">⏰</div><div class="rtx"><h4>Mese regulate, nu sărite</h4><p>Ore fixe: 8:00, 13:00, 19:00. Nu sări micul dejun — reglează tranzitul matinal în SII-D.</p></div></div>
+    <div class="rcard"><div class="rico">💧</div><div class="rtx"><h4>2-2.5L apă zilnic</h4><p>Evită apa carbogazoasă. Ceai de mentă, ghimbir sau mușețel sunt aliații tăi în SII.</p></div></div>
+    <div class="rcard"><div class="rico">🏋️</div><div class="rtx"><h4>Sala + SII</h4><p>Nu mânca cu mai puțin de 90 min înainte de antrenament. Efortul moderat îmbunătățește motilitatea intestinală.</p></div></div>
+    <div class="rcard"><div class="rico">🧘</div><div class="rtx"><h4>Stresul agravează SII direct</h4><p>Axa intestin-creier e reală. Somn 7-8h, mers pe jos, respirație conștientă — parte din tratament, nu opțional.</p></div></div>
+  </div>
+
+  <!-- FAQ -->
+  <div id="tab-faq" class="panel">
+    <div class="stitle">❓ Întrebări Frecvente</div>
+    <div class="rcard" style="display:block;padding:0 18px">
+      <div class="fitem"><div class="fq" onclick="toggleFaq(this)">Temperaturi și timpi Air Fryer? <span class="fa2">▼</span></div>
+        <div class="fa"><strong>Piept pui (fâșii/file):</strong> 200°C · 12-14 min · întoarce la 7 min<br><strong>Aripioare pui:</strong> 200°C · 20-22 min · agită la 10 min<br><strong>Somon file:</strong> 200°C · 10-12 min (nu întoarce)<br><strong>Cotlet porc slab:</strong> 195°C · 14-16 min · întoarce la 8 min<br><strong>Curcan file:</strong> 195°C · 13-15 min<br><strong>Creveți:</strong> 200°C · 6-8 min<br><strong>Cartofi wedges:</strong> 200°C · 18-20 min · agită la 10 min<br>⚠️ <strong>Preîncălzire obligatorie: 3 min înainte de orice!</strong></div>
+      </div>
+      <div class="fitem"><div class="fq" onclick="toggleFaq(this)">Pungile Edenia sunt safe FODMAP? <span class="fa2">▼</span></div>
+        <div class="fa"><strong>Safe:</strong> Morcovi cuburi, fasole verde (max 75g). <strong>Evită:</strong> orice mix cu broccoli, conopidă sau ceapă. Citește mereu eticheta!</div>
+      </div>
+      <div class="fitem"><div class="fq" onclick="toggleFaq(this)">Tamari vs. sos de soia normal? <span class="fa2">▼</span></div>
+        <div class="fa">Sosul de soia normal conține grâu (gluten) — INTERZIS. Tamari e versiunea fără grâu. Găsești la Mega Image, Carrefour (raft produse asiatice).</div>
+      </div>
+      <div class="fitem"><div class="fq" onclick="toggleFaq(this)">Pot mânca ouă zilnic cu SII? <span class="fa2">▼</span></div>
+        <div class="fa">Da! Ouăle nu conțin FODMAP, sunt ușor de digerat și o sursă excelentă de proteină. Poți mânca 3-4 pe zi.</div>
+      </div>
+      <div class="fitem"><div class="fq" onclick="toggleFaq(this)">De ce nu pot mânca usturoi chiar și puțin? <span class="fa2">▼</span></div>
+        <div class="fa">Usturoiul are cel mai ridicat conținut de fructani. <strong>Trucul:</strong> ulei de măsline infuzat cu usturoi — lasă 5 min în ulei cald, scoate bucățile. Fructanii nu se dizolvă în grăsimi, deci uleiul rămâne safe și aromat.</div>
+      </div>
+      <div class="fitem"><div class="fq" onclick="toggleFaq(this)">Cât de repede văd rezultate? <span class="fa2">▼</span></div>
+        <div class="fa">Cei mai mulți văd îmbunătățiri în 2-4 săptămâni. Balonarea se reduce adesea în prima săptămână.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESTAURANT -->
+  <div id="tab-restaurant" class="panel">
+    <div class="stitle">🍽️ Ghid Restaurant</div>
+    <div class="tip">💡 Spune mereu că ai <strong>intoleranță medicală la gluten ȘI la ceapă/usturoi</strong>.</div>
+    <div class="rescard"><h4>🥩 Grill / Tradițional</h4>
+      <div class="rok">✅ Carne la grătar fără marinadă sau cu sare+piper simplu</div>
+      <div class="rok">✅ Cartofi fierți sau copți simplu</div>
+      <div class="rok">✅ Salată roșii + castraveți cu ulei și oțet</div>
+      <div class="rno" style="margin-top:6px">❌ Sosuri, mâncare la tigaie cu ceapă, supe la plic</div>
+    </div>
+    <div class="rescard"><h4>🍕 Italian</h4>
+      <div class="rok">✅ Paste GF cu ulei de măsline + ierburi</div>
+      <div class="rok">✅ File de pește la grătar cu lămâie</div>
+      <div class="rno" style="margin-top:6px">❌ Pizza (gluten), sosuri la borcan cu ceapă, paste normale</div>
+    </div>
+    <div class="rescard"><h4>🍜 Asian</h4>
+      <div class="rok">✅ Sushi simplu (orez + pește) fără sos teriyaki</div>
+      <div class="rok">✅ Cere tamari în loc de sos soia normal</div>
+      <div class="rno" style="margin-top:6px">❌ Sos soia normal (gluten), teriyaki, picant, noodles din grâu</div>
+    </div>
+    <div class="tip">🗣️ <strong>Fraze utile:</strong> „Am intoleranță medicală la gluten și la ceapă și usturoi." · „Fără sos — doar ulei și lămâie."</div>
+  </div>
+
+  <!-- INFO -->
+  <div id="tab-info" class="panel">
+    <div class="stitle">💪 Info & Air Fryer</div>
+    <div class="icard" data-deco="🔥">
+      <h3>🔥 Ghid Complet Air Fryer</h3>
+      <p>Preîncălzire obligatorie 3 min. Tamponează carnea cu prosop înainte. Nu supraîncărca coșul.</p>
+      <div class="irow"><strong>Piept pui (fâșii/file):</strong> ulei + paprika + sare + piper · <strong>200°C · 12-14 min</strong></div>
+      <div class="irow"><strong>Aripioare pui crocante:</strong> uscat cu prosop + ulei + paprika · <strong>200°C · 20-22 min</strong></div>
+      <div class="irow"><strong>Somon file:</strong> sare + piper + coajă lămâie · <strong>200°C · 10-12 min</strong></div>
+      <div class="irow"><strong>Cotlet porc slab:</strong> paprika + cimbru + sare · <strong>195°C · 14-16 min</strong></div>
+      <div class="irow"><strong>Curcan file:</strong> oregano + sare + piper · <strong>195°C · 13-15 min</strong></div>
+      <div class="irow"><strong>Creveți:</strong> tamari + ulei susan + lime · <strong>200°C · 6-8 min</strong></div>
+    </div>
+    <div class="icard" data-deco="📊">
+      <h3>📊 Ce Înseamnă FODMAP</h3>
+      <div class="irow"><strong>F — Fructani:</strong> Ceapă, usturoi, grâu. Cei mai problematici.</div>
+      <div class="irow"><strong>O — GOS:</strong> Leguminoase — fasole, linte, năut. Gaze și crampe.</div>
+      <div class="irow"><strong>D — Lactoză:</strong> Lactate normale.</div>
+      <div class="irow"><strong>M — Fructoză în exces:</strong> Mere, miere în exces, pepene.</div>
+      <div class="irow"><strong>P — Polioli:</strong> Sorbitol, Mannitol. Diaree osmotică.</div>
+    </div>
+  </div>
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <button class="nb active" data-tab="plan" onclick="sw('plan')"><span class="ni">📅</span><span class="nl">Plan</span></button>
+  <button class="nb" data-tab="cumparaturi" onclick="sw('cumparaturi')"><span class="ni">🛒</span><span class="nl">Cumpăr.</span></button>
+  <button class="nb" data-tab="banca" onclick="sw('banca')"><span class="ni">🍽️</span><span class="nl">Rețete</span></button>
+  <button class="nb" data-tab="jurnal" onclick="sw('jurnal')"><span class="ni">📓</span><span class="nl">Jurnal</span></button>
+  <button class="nb" data-tab="reguli" onclick="sw('reguli')"><span class="ni">📋</span><span class="nl">Reguli</span></button>
+  <button class="nb" data-tab="faq" onclick="sw('faq')"><span class="ni">❓</span><span class="nl">FAQ</span></button>
+  <button class="nb" data-tab="restaurant" onclick="sw('restaurant')"><span class="ni">🍴</span><span class="nl">Restau.</span></button>
+  <button class="nb" data-tab="info" onclick="sw('info')"><span class="ni">💪</span><span class="nl">Info</span></button>
+</nav>
+
+<!-- MEAL PICKER MODAL -->
+<div class="modal-overlay" id="meal-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="modal-title">Alege rețeta</div>
+        <div class="modal-subtitle" id="modal-subtitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-remove" id="btn-remove" onclick="removeMeal()" style="display:none">🗑️ Șterge</button>
+      <button class="btn-confirm" id="btn-confirm" onclick="confirmMeal()" disabled>✓ Confirmă alegerea</button>
+    </div>
+  </div>
+</div>
+
+<!-- POKE MODAL -->
+<div class="modal-overlay" id="poke-modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">🥢 Construiește Poke Bowl</div>
+        <div class="modal-subtitle" id="poke-modal-subtitle"></div>
+      </div>
+      <button class="modal-close" onclick="closePokeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="poke-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-remove" id="poke-btn-remove" onclick="removePokeFromDay()" style="display:none">🗑️ Șterge</button>
+      <button class="btn-confirm" id="poke-btn-confirm" onclick="confirmPoke()" disabled>✓ Adaugă în plan</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM CLEAR -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <h3>🗑️ Ștergi săptămâna?</h3>
+    <p>Toate mesele planificate vor fi șterse și lista de cumpărături se va goli. Jurnalul de simptome rămâne neatins.</p>
+    <div class="confirm-btns">
+      <button class="cbtn-yes" onclick="clearWeek()">Da, șterge tot</button>
+      <button class="cbtn-no" onclick="closeConfirm()">Anulează</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════════
+// RECIPE DATA
+// ══════════════════════════════════════════════
+const R=[
+  {id:'m1',cat:'mic',emoji:'🌙🫐',name:'Budincă Chia cu Zmeură și Banană',time:'5 min seara · 0 min dimineața',kcal:380,af:false,tags:[{t:'✓ Fără lactoză',c:'tg'},{t:'✓ Fibre solubile',c:'tg'},{t:'⚠ Banană max ½',c:'ta'}],steps:['Amestecă <strong>40g chia + 350ml lapte migdale neîndulcit + 1 lgt esență vanilie</strong>.','Lasă 10 min, amestecă din nou. La frigider peste noapte.','Dimineața: <strong>80g zmeură + ½ banană mai verde feliată</strong> deasupra.','Opțional: <strong>1 lgt sirop de arțar</strong>.'],ingredients:[{cat:'🌱 Semințe',n:'Semințe chia',q:40,unit:'g'},{cat:'🥛 Băuturi Vegetale',n:'Lapte de migdale neîndulcit',q:350,unit:'ml'},{cat:'🍓 Fructe',n:'Zmeură',q:80,unit:'g'},{cat:'🍓 Fructe',n:'Banane (ușor verzi)',q:0.5,unit:'buc'}]},
+  {id:'m2',cat:'mic',emoji:'🌙🥝',name:'Budincă Chia cu Kiwi și Semințe Dovleac',time:'5 min seara · 0 min dimineața',kcal:390,af:false,tags:[{t:'✓ Kiwi — antidiaree natural',c:'tg'},{t:'✓ Zinc & magneziu',c:'tg'}],steps:['<strong>40g chia + 350ml lapte migdale + vanilie</strong>. La frigider.','Dimineața: <strong>2 kiwi</strong> curățați și tăiați cuburi deasupra.','Adaugă <strong>1 lingură semințe dovleac</strong>.'],ingredients:[{cat:'🌱 Semințe',n:'Semințe chia',q:40,unit:'g'},{cat:'🥛 Băuturi Vegetale',n:'Lapte de migdale neîndulcit',q:350,unit:'ml'},{cat:'🍓 Fructe',n:'Kiwi',q:2,unit:'buc'},{cat:'🌱 Semințe',n:'Semințe de dovleac',q:15,unit:'g'}]},
+  {id:'m3',cat:'mic',emoji:'🌙🥭',name:'Budincă Chia cu Mango și Fulgi Cocos',time:'5 min seara · 0 min dimineața',kcal:365,af:false,tags:[{t:'✓ Cocos safe FODMAP',c:'tg'},{t:'⚠ Mango: max 80g',c:'ta'}],steps:['<strong>40g chia + 350ml lapte migdale + 2 linguri fulgi cocos neîndulciți</strong>. La frigider.','Dimineața: <strong>80g mango</strong> cubulețe deasupra.','Garniturează cu <strong>frunze de mentă</strong> + zeamă lime.'],ingredients:[{cat:'🌱 Semințe',n:'Semințe chia',q:40,unit:'g'},{cat:'🥛 Băuturi Vegetale',n:'Lapte de migdale neîndulcit',q:350,unit:'ml'},{cat:'❄️ Congelate',n:'Mango congelat',q:80,unit:'g'},{cat:'🌱 Semințe',n:'Fulgi cocos neîndulciți',q:20,unit:'g'}]},
+  {id:'m4',cat:'mic',emoji:'🌙🫐',name:'Budincă Chia cu Afine și Nuci',time:'5 min seara · 0 min dimineața',kcal:405,af:false,tags:[{t:'✓ Afine — top fruct SII',c:'tg'},{t:'✓ Scorțișoară stabilizează glicemia',c:'tg'}],steps:['<strong>40g chia + 350ml lapte migdale + vanilie</strong>. La frigider.','Dimineața: <strong>80g afine + 8-10 nuci</strong> deasupra.','Presară <strong>1 lgt scorțișoară</strong>.'],ingredients:[{cat:'🌱 Semințe',n:'Semințe chia',q:40,unit:'g'},{cat:'🥛 Băuturi Vegetale',n:'Lapte de migdale neîndulcit',q:350,unit:'ml'},{cat:'🍓 Fructe',n:'Afine',q:80,unit:'g'},{cat:'🌱 Semințe',n:'Nuci întregi',q:25,unit:'g'}]},
+  {id:'m5',cat:'mic',emoji:'🌙🍓',name:'Budincă Chia cu Căpșuni și Semințe Floarea-Soarelui',time:'5 min seara · 0 min dimineața',kcal:375,af:false,tags:[{t:'✓ Căpșuni — perfect safe FODMAP',c:'tg'},{t:'✓ Vitamina C ridicată',c:'tg'}],steps:['<strong>40g chia + 350ml lapte migdale + vanilie</strong>. La frigider.','Dimineața: <strong>80g căpșuni feliate + 1 lingură semințe floarea-soarelui</strong>.'],ingredients:[{cat:'🌱 Semințe',n:'Semințe chia',q:40,unit:'g'},{cat:'🥛 Băuturi Vegetale',n:'Lapte de migdale neîndulcit',q:350,unit:'ml'},{cat:'🍓 Fructe',n:'Căpșuni',q:80,unit:'g'},{cat:'🌱 Semințe',n:'Semințe floarea-soarelui',q:15,unit:'g'}]},
+  {id:'m6',cat:'mic',emoji:'🌙🍊',name:'Budincă Chia cu Portocală și Migdale',time:'5 min seara · 0 min dimineața',kcal:370,af:false,tags:[{t:'✓ Portocală — vitamina C',c:'tg'},{t:'⚠ Max 10 migdale/porție',c:'ta'}],steps:['<strong>40g chia + 350ml lapte migdale + coaja rasă ½ portocală + vanilie</strong>. La frigider.','Dimineața: <strong>½ portocală</strong> segmente + <strong>1 lingură migdale feliate</strong>.'],ingredients:[{cat:'🌱 Semințe',n:'Semințe chia',q:40,unit:'g'},{cat:'🥛 Băuturi Vegetale',n:'Lapte de migdale neîndulcit',q:350,unit:'ml'},{cat:'🍓 Fructe',n:'Portocale',q:1,unit:'buc'},{cat:'🌱 Semințe',n:'Migdale feliate',q:15,unit:'g'}]},
+  {id:'m7',cat:'mic',emoji:'🌙🍌',name:'Budincă Chia cu Banane Caramelizate',time:'5 min seara · 5 min dimineața',kcal:425,af:false,tags:[{t:'✓ Weekend treat',c:'tg'},{t:'⚠ Banană max ½ mai verde',c:'ta'}],steps:['La frigider seara: <strong>40g chia + 350ml lapte migdale + vanilie</strong>.','Dimineața: feliază <strong>½ banană mai verde</strong>. Caramelizează cu <strong>½ lgt ulei cocos + 1 lgt sirop arțar</strong> — 2-3 min.','Pune deasupra + <strong>6-8 nuci</strong> + scorțișoară.'],ingredients:[{cat:'🌱 Semințe',n:'Semințe chia',q:40,unit:'g'},{cat:'🥛 Băuturi Vegetale',n:'Lapte de migdale neîndulcit',q:350,unit:'ml'},{cat:'🍓 Fructe',n:'Banane (ușor verzi)',q:0.5,unit:'buc'},{cat:'🌱 Semințe',n:'Nuci întregi',q:20,unit:'g'}]},
+  {id:'m8',cat:'mic',emoji:'🍳🥬',name:'Omletă cu Spanac și Roșii Cherry',time:'12 min',kcal:420,af:false,tags:[{t:'✓ Ouă — excelente SII',c:'tg'},{t:'✓ Proteină matinală',c:'tg'}],steps:['Bate <strong>3 ouă</strong> cu sare și piper.','Încinge <strong>1 lgt ulei măsline</strong>. Adaugă <strong>1 mână spanac</strong> — 1-2 min.','Adaugă <strong>6-8 roșii cherry</strong>, lasă 1 min. Toarnă ouăle. Coagulează 2-3 min, pliază.','Servește cu <strong>2 felii pâine GF</strong> prăjite.'],ingredients:[{cat:'🥚 Ouă',n:'Ouă (mărimea M/L)',q:3,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Spanac proaspăt',q:50,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:80,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Pâine fără gluten',q:2,unit:'felii'}]},
+  {id:'m9',cat:'mic',emoji:'🥚🥕',name:'Ouă Scrambled cu Morcov Ras',time:'10 min',kcal:390,af:false,tags:[{t:'✓ Mic dejun cald proteic',c:'tg'},{t:'✓ Rapid și consistent',c:'tg'}],steps:['Rade <strong>1 morcov mic</strong>. Sotează 3 min în <strong>1 lgt ulei măsline</strong>.','Bate <strong>3 ouă</strong> cu sare și piper. Toarnă peste morcov.','Amestecă la foc mic până se coagulează cremă — 3-4 min.','Servește cu <strong>2 felii pâine GF</strong> prăjite.'],ingredients:[{cat:'🥚 Ouă',n:'Ouă (mărimea M/L)',q:3,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Morcovi',q:1,unit:'buc'},{cat:'🌾 Cereale & Paste GF',n:'Pâine fără gluten',q:2,unit:'felii'}]},
+  {id:'m10',cat:'mic',emoji:'🌙🍫',name:'Budincă Chia Ciocolată cu Zmeură',time:'5 min seara · 0 min dimineața',kcal:395,af:false,tags:[{t:'✓ Cacao pură safe FODMAP',c:'tg'},{t:'✓ Antioxidanți ridicați',c:'tg'}],steps:['<strong>40g chia + 350ml lapte migdale + 1.5 lgt cacao pură + 1 lgt sirop arțar</strong>. La frigider.','Dimineața: <strong>80g zmeură</strong> deasupra.'],ingredients:[{cat:'🌱 Semințe',n:'Semințe chia',q:40,unit:'g'},{cat:'🥛 Băuturi Vegetale',n:'Lapte de migdale neîndulcit',q:350,unit:'ml'},{cat:'🍓 Fructe',n:'Zmeură',q:80,unit:'g'}]},
+
+  {id:'p1',cat:'pranz',emoji:'🍗🥔',name:'Pui AF cu Cartofi Wedges și Salată',time:'AF 200°C · 13 min pui / 20 min cartofi',kcal:620,af:true,tags:[{t:'✓ 100% Air Fryer',c:'tg'},{t:'✓ Proteină înaltă',c:'tg'},{t:'✗ Fără marinate usturoi',c:'tr'}],steps:['<strong>Preîncălzește AF 3 min la 200°C.</strong>','Cartofi wedges: <strong>2 cartofi + 1 lgt ulei + sare + paprika</strong> · AF <strong>200°C · 18-20 min</strong>.','Condimentează <strong>150g piept pui fâșii</strong> cu sare, piper, paprika, 1 lgt ulei · AF <strong>200°C · 12-14 min</strong>.','Salată: <strong>rucola + roșii cherry + castravete + ulei măsline + zeamă lămâie</strong>.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Piept de pui',q:150,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Cartofi albi',q:300,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Rucola',q:30,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Castraveți',q:0.5,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Lămâi',q:1,unit:'buc'}]},
+  {id:'poke4',cat:'cina',emoji:'🥢🐟',name:'Poke Bowl cu Somon AF și Quinoa',time:'AF 200°C · 11 min · Total ~20 min',kcal:620,af:true,isPoke:true,tags:[{t:'✓ Omega-3 antiinflamator',c:'tg'},{t:'✓ Quinoa proteină completă',c:'tg'},{t:'✓ Poke bowl premium',c:'tg'}],steps:['Fierbe <strong>80g quinoa spălată</strong> — 12 min.','Preîncălzește AF 3 min la 200°C.','Condimentează <strong>150g file somon</strong> cu tamari + ulei susan + ghimbir ras + zeamă lime.','AF <strong>200°C · 10-12 min</strong>.','<strong>Morcov murat rapid:</strong> 1 morcov julienne + oțet orez + sare — 15 min.','Bowl: quinoa + somon AF + morcov murat + castravete + ardei roșu + rucola. Dressing: tamari + ulei susan + lime.'],ingredients:[{cat:'🥩 Carne & Pește',n:'File somon proaspăt',q:150,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Quinoa',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Morcovi',q:1,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Castraveți',q:0.5,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Ardei roșu / kapia',q:0.5,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Rucola',q:30,unit:'g'},{cat:'🫒 Uleiuri & Sosuri',n:'Tamari (sos soia GF)',q:2,unit:'lgt'},{cat:'🫒 Uleiuri & Sosuri',n:'Ulei de susan',q:1,unit:'lgt'},{cat:'🥬 Legume Proaspete',n:'Lime',q:1,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Ghimbir proaspăt',q:5,unit:'g'}]},
+  {id:'p2',cat:'pranz',emoji:'🐟🍚',name:'Somon AF cu Orez Basmati și Salată',time:'AF 200°C · 11 min · Total ~20 min',kcal:600,af:true,tags:[{t:'✓ Omega-3 antiinflamator',c:'tg'},{t:'✓ Somon AF crocant',c:'tg'}],steps:['Fierbe <strong>80g orez basmati</strong>.','<strong>Preîncălzește AF 3 min la 200°C.</strong>','Condimentează <strong>150g file somon</strong> cu sare, piper, coajă lămâie, 1 lgt ulei.','AF <strong>200°C · 10-12 min</strong>, nu întoarce.','Salată: <strong>rucola + roșii cherry + castravete + zeamă lămâie</strong>.'],ingredients:[{cat:'🥩 Carne & Pește',n:'File somon proaspăt',q:150,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Orez basmati',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Rucola',q:30,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Lămâi',q:1,unit:'buc'}]},
+  {id:'poke1',cat:'cina',emoji:'🥢🍗',name:'Poke Bowl cu Pui AF și Morcov Murat',time:'AF 200°C · 13 min · Total ~20 min',kcal:590,af:true,isPoke:true,tags:[{t:'✓ Poke Bowl FODMAP safe',c:'tg'},{t:'✓ Tamari în loc de soia',c:'tg'},{t:'✗ Fără sos soia normal',c:'tr'}],steps:['<strong>Morcov murat rapid:</strong> 1 morcov julienne + oțet orez + zahăr + sare — 15 min.','Fierbe <strong>80g orez basmati</strong>.','Marinează <strong>150g piept pui cubulețe</strong> cu tamari + ulei susan + zeamă lime + ghimbir ras — 10 min.','Pui AF <strong>200°C · 12-13 min</strong>.','Bowl: orez + pui AF + morcov murat + roșii cherry + castravete + rucola. Dressing: tamari + ulei susan + lime.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Piept de pui',q:150,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Orez basmati',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Morcovi',q:1,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:60,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Castraveți',q:0.5,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Rucola',q:30,unit:'g'},{cat:'🫒 Uleiuri & Sosuri',n:'Tamari (sos soia GF)',q:2,unit:'lgt'},{cat:'🫒 Uleiuri & Sosuri',n:'Ulei de susan',q:1,unit:'lgt'},{cat:'🥬 Legume Proaspete',n:'Lime',q:1,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Ghimbir proaspăt',q:5,unit:'g'}]},
+  {id:'poke2',cat:'cina',emoji:'🥢🦐',name:'Poke Bowl cu Creveți AF',time:'AF 200°C · 7 min · Total ~18 min',kcal:545,af:true,isPoke:true,tags:[{t:'✓ Creveți proteină slabă',c:'tg'},{t:'✓ Poke rapid',c:'tg'}],steps:['Fierbe <strong>80g orez basmati</strong>.','Marinează <strong>150g creveți</strong> cu tamari + ulei susan + ghimbir ras + zeamă lime — 10 min.','Creveți AF <strong>200°C · 6-8 min</strong>.','Bowl: orez + creveți AF + morcov murat + castravete + ardei roșu + spanac.','Dressing: tamari + ulei susan + sirop arțar + zeamă lime.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Creveți curățați congelați',q:150,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Orez basmati',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Morcovi',q:1,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Castraveți',q:0.5,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Ardei roșu / kapia',q:0.5,unit:'buc'},{cat:'🫒 Uleiuri & Sosuri',n:'Tamari (sos soia GF)',q:2,unit:'lgt'},{cat:'🥬 Legume Proaspete',n:'Lime',q:1,unit:'buc'}]},
+  {id:'p5',cat:'pranz',emoji:'🍗🌾',name:'Salată Meal-Prep cu Pui AF și Quinoa',time:'AF 200°C · 13 min · Total ~18 min',kcal:580,af:true,tags:[{t:'✓ Faci pentru 2 zile!',c:'tg'},{t:'✓ Quinoa proteină completă',c:'tg'}],steps:['Fierbe <strong>120g quinoa</strong>.','Condimentează <strong>300g piept pui fâșii</strong> cu sare, piper, paprika, cimbru, 1 lgt ulei.','AF <strong>200°C · 12-14 min</strong>.','Amestecă quinoa cu roșii cherry + rucola + ardei roșu + castravete.','Dressing: ulei măsline + oțet orez + muștar simplu. <strong>½ azi, ½ mâine!</strong>'],ingredients:[{cat:'🥩 Carne & Pește',n:'Piept de pui',q:300,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Quinoa',q:120,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:100,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Rucola',q:40,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Ardei roșu / kapia',q:1,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Castraveți',q:1,unit:'buc'}]},
+  {id:'p6',cat:'pranz',emoji:'🥩🍚',name:'Cotlet Porc AF cu Orez și Ardei Roșu',time:'AF 195°C · 15 min · Total ~20 min',kcal:615,af:true,tags:[{t:'✓ Porc slab AF suculent',c:'tg'},{t:'✓ Ardei roșu safe FODMAP',c:'tg'}],steps:['Fierbe <strong>80g orez basmati</strong>.','Marinează <strong>150g cotlet porc slab</strong> cu paprika + cimbru + sare + piper + zeamă lămâie — 10 min.','AF <strong>195°C · 14-16 min</strong>, întoarce la 8 min.','Sotează <strong>1 ardei roșu fâșii</strong> cu 1 lgt ulei + sare — 5 min.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Cotlet porc slab',q:150,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Orez basmati',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Ardei roșu / kapia',q:1,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Lămâi',q:1,unit:'buc'}]},
+  {id:'p7',cat:'pranz',emoji:'🦃🥗',name:'Curcan AF cu Salată Morcovi Rași',time:'AF 195°C · 14 min · Total ~18 min',kcal:560,af:true,tags:[{t:'✓ Curcan carne slabă',c:'tg'},{t:'✓ Salată rapidă fără gătit',c:'tg'}],steps:['Condimentează <strong>150g piept curcan</strong> cu sare, piper, paprika, oregano, 1 lgt ulei.','AF <strong>195°C · 13-15 min</strong>.','Rade <strong>2 morcovi mari</strong>. Amestecă cu oțet orez + ulei măsline + sare + zeamă lămâie + pătrunjel.','Servește cu salata de morcovi și <strong>2 cartofi fierți</strong>.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Piept de curcan',q:150,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Morcovi',q:2,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Cartofi albi',q:200,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Lămâi',q:1,unit:'buc'}]},
+  {id:'poke3',cat:'cina',emoji:'🐠🥢',name:'Poke Bowl cu Ton (fără AF)',time:'20 min — fără AF necesar',kcal:530,af:false,isPoke:true,tags:[{t:'✓ Rapid fără gătit proteina',c:'tg'},{t:'✓ Omega-3 din ton',c:'tg'}],steps:['Fierbe <strong>80g orez basmati</strong>.','Scurge bine <strong>1 conservă ton în apă (120g)</strong>.','<strong>Morcov murat:</strong> julienne + oțet orez + sare — 15 min.','Bowl: orez + ton + morcov murat + rucola + roșii cherry + castravete + ardei roșu.','Dressing: tamari + ulei susan + zeamă lime + ghimbir ras.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Ton în apă (conservă)',q:1,unit:'cutie'},{cat:'🌾 Cereale & Paste GF',n:'Orez basmati',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Morcovi',q:1,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Rucola',q:30,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:60,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Castraveți',q:0.5,unit:'buc'},{cat:'🫒 Uleiuri & Sosuri',n:'Tamari (sos soia GF)',q:2,unit:'lgt'},{cat:'🥬 Legume Proaspete',n:'Lime',q:1,unit:'buc'}]},
+  {id:'p9',cat:'pranz',emoji:'🍗🍲',name:'Supă de Pui cu Tăiței GF',time:'20 min (oală)',kcal:520,af:false,tags:[{t:'✓ Clasic vindecator SII',c:'tg'},{t:'✓ Tăiței orez safe',c:'tg'}],steps:['Fierbe <strong>150g pulpe pui fără os</strong> în 1L apă cu sare — 15 min.','Adaugă <strong>2 morcovi feliați + 1 păstârnac + frunze țelină verde</strong>.','Pune <strong>80g tăiței orez GF</strong>, fierbe 7-8 min.','Garniturează cu pătrunjel proaspăt.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Piept de pui',q:150,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Tăiței din orez (pentru supă)',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Morcovi',q:2,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Pătrunjel proaspăt',q:1,unit:'leg'}]},
+  {id:'p10',cat:'pranz',emoji:'🥚🌾',name:'Salată Meal-Prep cu Ouă și Quinoa',time:'20 min',kcal:510,af:false,tags:[{t:'✓ Vegetarian',c:'tg'},{t:'✓ Meal prep 2 zile',c:'tg'}],steps:['Fierbe <strong>120g quinoa</strong> și <strong>4 ouă tari</strong>.','Toacă roșii cherry + castravete + ardei roșu + rucola.','Dressing: 2 lgt ulei măsline + zeamă lămâie + 1 lgt muștar simplu.','Amestecă quinoa cu legumele. Ouă sferturi deasupra. <strong>½ azi, ½ mâine!</strong>'],ingredients:[{cat:'🥚 Ouă',n:'Ouă (mărimea M/L)',q:4,unit:'buc'},{cat:'🌾 Cereale & Paste GF',n:'Quinoa',q:120,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Castraveți',q:1,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Ardei roșu / kapia',q:1,unit:'buc'}]},
+  {id:'p11',cat:'pranz',emoji:'🍗🥔',name:'Aripioare Pui AF cu Cartofi Cuburi',time:'AF 200°C · 22 min',kcal:650,af:true,tags:[{t:'✓ Aripioare crocante AF',c:'tg'},{t:'✓ Cartofi cuburi AF',c:'tg'}],steps:['<strong>Preîncălzește AF 3 min la 200°C.</strong>','Tamponează <strong>250g aripioare pui</strong> cu prosop. Unge cu ulei + paprika + sare + piper.','Cartofi cuburi: <strong>2 cartofi + 1 lgt ulei + sare + paprika</strong>.','AF 200°C · 20-22 min, agită la 10 min.','Sos dip: muștar simplu + ulei măsline + zeamă lămâie.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Aripioare de pui',q:250,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Cartofi albi',q:300,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Lămâi',q:1,unit:'buc'}]},
+
+  {id:'c1',cat:'cina',emoji:'🥩🥔',name:'Cotlet Porc AF cu Cartofi Dulci și Legume Edenia',time:'AF 195°C · 15 min · Total ~20 min',kcal:610,af:true,tags:[{t:'✓ Porc AF suculent',c:'tg'},{t:'✓ Pungă Edenia rapid',c:'tg'},{t:'⚠ Cartofi dulci: max 75g',c:'ta'}],steps:['Marinează <strong>150g cotlet porc slab</strong> cu paprika + cimbru + sare + piper + zeamă lămâie — 10 min.','Fierbe <strong>150g cartofi dulci cuburi</strong> — 12 min.','AF <strong>195°C · 14-16 min</strong>.','Gătește <strong>½ pungă Edenia</strong> cu 1 lgt ulei + sare.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Cotlet porc slab',q:150,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Cartofi dulci',q:150,unit:'g'},{cat:'❄️ Congelate',n:'Pungi legume Edenia',q:0.5,unit:'pungă'},{cat:'🥬 Legume Proaspete',n:'Lămâi',q:1,unit:'buc'}]},
+  {id:'c2',cat:'cina',emoji:'🍗🍳',name:'Pui AF cu Orez Friat și Legume Edenia',time:'AF 200°C · 13 min · Total ~20 min',kcal:590,af:true,tags:[{t:'✓ Orez friat garnitură asiatică',c:'tg'},{t:'✓ Pungă Edenia rapidă',c:'tg'}],steps:['Condimentează <strong>150g piept pui</strong> cu sare, piper, paprika, 1 lgt ulei. AF <strong>200°C · 12-13 min</strong>.','Orez friat: tigaie foc mare, orez rece fiert, <strong>1 ou bătut + 1 lgt tamari GF</strong> — 3-4 min.','Gătește <strong>½ pungă Edenia</strong>.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Piept de pui',q:150,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Orez basmati',q:80,unit:'g'},{cat:'🥚 Ouă',n:'Ouă (mărimea M/L)',q:1,unit:'buc'},{cat:'❄️ Congelate',n:'Pungi legume Edenia',q:0.5,unit:'pungă'},{cat:'🫒 Uleiuri & Sosuri',n:'Tamari (sos soia GF)',q:1,unit:'lgt'}]},
+  {id:'c3',cat:'cina',emoji:'🐟🥔',name:'Somon AF cu Cartofi Wedges AF',time:'AF 200°C · 20 min cartofi / 11 min somon',kcal:605,af:true,tags:[{t:'✓ Totul la AF',c:'tg'},{t:'✓ Omega-3 + cartofi crocanti',c:'tg'}],steps:['Cartofi wedges cu ulei + sare + paprika · AF <strong>200°C · 20 min</strong>.','La 8 min de final, adaugă <strong>150g file somon</strong> · AF <strong>200°C · 10-12 min</strong>.','Salată: rucola + roșii cherry + zeamă lămâie.'],ingredients:[{cat:'🥩 Carne & Pește',n:'File somon proaspăt',q:150,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Cartofi albi',q:300,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Rucola',q:30,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Lămâi',q:1,unit:'buc'}]},
+  {id:'c4',cat:'cina',emoji:'🦃🍝',name:'Curcan AF cu Paste GF și Sos Roșii',time:'AF 195°C · 14 min · Total ~20 min',kcal:600,af:true,tags:[{t:'✓ Paste orez safe FODMAP',c:'tg'},{t:'✓ Curcan AF suculent',c:'tg'},{t:'✗ Fără sos la borcan',c:'tr'}],steps:['Fierbe <strong>80g paste GF (orez/porumb)</strong>.','Condimentează <strong>150g piept curcan</strong> cu sare, piper, oregano, 1 lgt ulei. AF <strong>195°C · 13-15 min</strong>.','Sos simplu: 5 roșii cherry zdrobite + busuioc + sare — 5 min tigaie.','Taie curcanul fâșii. Amestecă cu pastele și sosul.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Piept de curcan',q:150,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Paste fără gluten (orez/porumb)',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Lămâi',q:1,unit:'buc'}]},
+  {id:'c5',cat:'cina',emoji:'🦐🍚',name:'Creveți AF cu Orez și Sos Asian',time:'AF 200°C · 7 min · Total ~18 min',kcal:550,af:true,tags:[{t:'✓ Creveți crocanti AF',c:'tg'},{t:'✓ Sos asian fără FODMAP',c:'tg'}],steps:['Fierbe <strong>80g orez basmati</strong>.','Marinează <strong>150g creveți curățați</strong> cu tamari + ulei susan + zeamă lime + ghimbir ras — 10 min.','Creveți AF <strong>200°C · 6-8 min</strong>.','Gătește ½ pungă Edenia.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Creveți curățați congelați',q:150,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Orez basmati',q:80,unit:'g'},{cat:'❄️ Congelate',n:'Pungi legume Edenia',q:0.5,unit:'pungă'},{cat:'🫒 Uleiuri & Sosuri',n:'Tamari (sos soia GF)',q:2,unit:'lgt'},{cat:'🥬 Legume Proaspete',n:'Lime',q:1,unit:'buc'}]},
+  {id:'c6',cat:'cina',emoji:'🥚🍳',name:'Omletă cu 3 Ouă și Pâine GF',time:'12 min',kcal:450,af:false,tags:[{t:'✓ Cină ușoară',c:'tg'},{t:'✓ Rapid fără AF',c:'tg'},{t:'✓ Proteine înalte',c:'tg'}],steps:['Bate <strong>3 ouă</strong> cu sare, piper.','Încinge <strong>1 lgt ulei măsline</strong>. Adaugă <strong>8 roșii cherry + 1 mână spanac</strong>.','Toarnă ouăle. Foc mic 2-3 min, pliază.','Servește cu <strong>2-3 felii pâine GF</strong> prăjite.'],ingredients:[{cat:'🥚 Ouă',n:'Ouă (mărimea M/L)',q:3,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:80,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Spanac proaspăt',q:40,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Pâine fără gluten',q:2,unit:'felii'}]},
+  {id:'c7',cat:'cina',emoji:'🍲🥕',name:'Supă Cremă de Morcovi și Ghimbir',time:'20 min (oală)',kcal:480,af:false,tags:[{t:'✓ Ghimbir antiinflamator',c:'tg'},{t:'✓ Supă caldă calmantă SII',c:'tg'}],steps:['Fierbe <strong>4 morcovi + 2 cartofi medii</strong> cuburi în 700ml apă cu sare — 15 min.','Blendează cu <strong>1 lgt ghimbir ras + 1 lgt ulei cocos + piper</strong>.','Servește cu <strong>2 felii pâine GF</strong> prăjite.'],ingredients:[{cat:'🥬 Legume Proaspete',n:'Morcovi',q:4,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Cartofi albi',q:250,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Ghimbir proaspăt',q:10,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Pâine fără gluten',q:2,unit:'felii'}]},
+  {id:'c8',cat:'cina',emoji:'🥗🥚',name:'Salată Quinoa Caldă cu Ouă Poșate',time:'18 min',kcal:520,af:false,tags:[{t:'✓ Quinoa proteină completă',c:'tg'},{t:'✓ Ouă poșate ușoare digestiv',c:'tg'}],steps:['Fierbe <strong>60g quinoa spălată</strong> — 12 min.','Poșează <strong>2 ouă</strong>: apă clocotită + oțet + vârtej — 3 min.','Amestecă quinoa caldă cu spanac + roșii cherry + zeamă lămâie + ulei măsline.','Pune ouăle poșate deasupra.'],ingredients:[{cat:'🥚 Ouă',n:'Ouă (mărimea M/L)',q:2,unit:'buc'},{cat:'🌾 Cereale & Paste GF',n:'Quinoa',q:60,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Spanac proaspăt',q:50,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:60,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Lămâi',q:1,unit:'buc'}]},
+  {id:'c9',cat:'cina',emoji:'🍗🌿',name:'Pui AF cu Pungă Edenia și Orez',time:'AF 200°C · 13 min · Total ~20 min',kcal:575,af:true,tags:[{t:'✓ Cea mai rapidă cină',c:'tg'},{t:'✓ Pungă legume congelate',c:'tg'}],steps:['Fierbe <strong>80g orez basmati</strong>.','Condimentează <strong>150g piept pui</strong> cu cimbru + paprika + sare + piper + 1 lgt ulei.','AF <strong>200°C · 12-13 min</strong>.','Gătește <strong>½ pungă Edenia</strong> cu 1 lgt ulei + sare.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Piept de pui',q:150,unit:'g'},{cat:'🌾 Cereale & Paste GF',n:'Orez basmati',q:80,unit:'g'},{cat:'❄️ Congelate',n:'Pungi legume Edenia',q:0.5,unit:'pungă'}]},
+  {id:'c10',cat:'cina',emoji:'🍗🔥',name:'Aripioare Pui AF cu Cartofi Cuburi',time:'AF 200°C · 22 min',kcal:640,af:true,tags:[{t:'✓ Aripioare crocante perfecte',c:'tg'},{t:'✓ Cartofi cuburi AF',c:'tg'}],steps:['<strong>Preîncălzește AF 3 min la 200°C.</strong>','Tamponează <strong>250g aripioare</strong> cu prosop. Unge cu ulei + paprika + sare + piper.','Cartofi cuburi: 2 cartofi + 1 lgt ulei + sare + paprika.','AF 200°C · 20-22 min, agită la 10 min.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Aripioare de pui',q:250,unit:'g'},{cat:'🥬 Legume Proaspete',n:'Cartofi albi',q:300,unit:'g'}]},
+  {id:'c11',cat:'cina',emoji:'🐠🍚',name:'Ton cu Orez Friat și Castravete',time:'18 min',kcal:555,af:false,tags:[{t:'✓ Rapid și sățioasă',c:'tg'},{t:'✓ Orez friat garnitură specială',c:'tg'}],steps:['Orez friat: tigaie foc mare, orez rece fiert, <strong>1 ou bătut + 1 lgt tamari GF</strong> — 3-4 min.','Scurge <strong>1 conservă ton în apă (150g)</strong>.','Feliază ½ castravete cu oțet orez + sare.','Servește tonul cu orezul friat și salata castravete.'],ingredients:[{cat:'🥩 Carne & Pește',n:'Ton în apă (conservă)',q:1,unit:'cutie'},{cat:'🌾 Cereale & Paste GF',n:'Orez basmati',q:80,unit:'g'},{cat:'🥚 Ouă',n:'Ouă (mărimea M/L)',q:1,unit:'buc'},{cat:'🥬 Legume Proaspete',n:'Castraveți',q:0.5,unit:'buc'},{cat:'🫒 Uleiuri & Sosuri',n:'Tamari (sos soia GF)',q:1,unit:'lgt'}]}
+];
+
+// ══════════════════════════════════════════════
+// POKE BUILDER DATA
+// ══════════════════════════════════════════════
+const POKE_OPTIONS = {
+  base: [
+    {name:'Orez basmati (80g)',kcal:280,ingredients:[{cat:'🌾 Cereale & Paste GF',n:'Orez basmati',q:80,unit:'g'}]},
+    {name:'Quinoa (80g)',kcal:295,ingredients:[{cat:'🌾 Cereale & Paste GF',n:'Quinoa',q:80,unit:'g'}]}
+  ],
+  prot: [
+    {name:'Pui AF 🔥',kcal:185,af:true,ingredients:[{cat:'🥩 Carne & Pește',n:'Piept de pui',q:150,unit:'g'}]},
+    {name:'Somon AF 🔥',kcal:200,af:true,ingredients:[{cat:'🥩 Carne & Pește',n:'File somon proaspăt',q:150,unit:'g'}]},
+    {name:'Creveți AF 🔥',kcal:130,af:true,ingredients:[{cat:'🥩 Carne & Pește',n:'Creveți curățați congelați',q:150,unit:'g'}]},
+    {name:'Ton din conservă',kcal:110,af:false,ingredients:[{cat:'🥩 Carne & Pește',n:'Ton în apă (conservă)',q:1,unit:'cutie'}]},
+    {name:'Ouă (2 buc)',kcal:140,af:false,ingredients:[{cat:'🥚 Ouă',n:'Ouă (mărimea M/L)',q:2,unit:'buc'}]}
+  ],
+  dress: [
+    {name:'Tamari + ulei susan + lime',kcal:45,ingredients:[{cat:'🫒 Uleiuri & Sosuri',n:'Tamari (sos soia GF)',q:2,unit:'lgt'},{cat:'🫒 Uleiuri & Sosuri',n:'Ulei de susan',q:1,unit:'lgt'},{cat:'🥬 Legume Proaspete',n:'Lime',q:1,unit:'buc'}]},
+    {name:'Ulei măsline + oțet orez + lămâie',kcal:40,ingredients:[{cat:'🥬 Legume Proaspete',n:'Lămâi',q:1,unit:'buc'}]},
+    {name:'Tamari + ulei susan + sirop arțar',kcal:55,ingredients:[{cat:'🫒 Uleiuri & Sosuri',n:'Tamari (sos soia GF)',q:2,unit:'lgt'},{cat:'🫒 Uleiuri & Sosuri',n:'Sirop de arțar pur',q:1,unit:'lgt'}]}
+  ],
+  veg: [
+    {name:'Morcov murat',kcal:20,ingredients:[{cat:'🥬 Legume Proaspete',n:'Morcovi',q:1,unit:'buc'}]},
+    {name:'Roșii cherry',kcal:15,ingredients:[{cat:'🥬 Legume Proaspete',n:'Roșii cherry',q:60,unit:'g'}]},
+    {name:'Castravete',kcal:10,ingredients:[{cat:'🥬 Legume Proaspete',n:'Castraveți',q:0.5,unit:'buc'}]},
+    {name:'Ardei roșu',kcal:15,ingredients:[{cat:'🥬 Legume Proaspete',n:'Ardei roșu / kapia',q:0.5,unit:'buc'}]},
+    {name:'Rucola / Spanac',kcal:5,ingredients:[{cat:'🥬 Legume Proaspete',n:'Rucola',q:30,unit:'g'}]}
+  ],
+  top: [
+    {name:'Semințe susan',kcal:25,ingredients:[{cat:'🌱 Semințe',n:'Semințe susan alb',q:10,unit:'g'}]},
+    {name:'Semințe dovleac',kcal:30,ingredients:[{cat:'🌱 Semințe',n:'Semințe de dovleac',q:10,unit:'g'}]},
+    {name:'Ghimbir ras',kcal:5,ingredients:[{cat:'🥬 Legume Proaspete',n:'Ghimbir proaspăt',q:5,unit:'g'}]},
+    {name:'Migdale feliate',kcal:35,ingredients:[{cat:'🌱 Semințe',n:'Migdale feliate',q:10,unit:'g'}]}
+  ]
+};
+
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+const DAYS = ['Luni','Marți','Miercuri','Joi','Vineri','Sâmbătă','Duminică'];
+const MEALS = ['mic','pranz','cina'];
+const MEAL_LABELS = {mic:'🌅 Mic Dejun',pranz:'☀️ Prânz',cina:'🌙 Cină'};
+const MEAL_ICONS = {mic:'🌅',pranz:'☀️',cina:'🌙'};
+
+let weekPlan = {}; // {dayIdx_mealType: {recipeId, pokeConfig?}}
+let shopChecked = {}; // {key: bool}
+
+// Modal state
+let currentSlot = null; // {dayIdx, mealType}
+let selectedRecipeId = null;
+let currentPokeSlot = null;
+let pokeSelection = {base:null,prot:null,dress:null,veg:[],top:[]};
+
+function loadState(){
+  try {
+    const wp = localStorage.getItem('fodmap_week_v4');
+    if(wp) weekPlan = JSON.parse(wp);
+    const sc = localStorage.getItem('fodmap_shop_checked_v4');
+    if(sc) shopChecked = JSON.parse(sc);
+  } catch(e){}
+}
+
+function saveState(){
+  updatePdfFab();
+  try {
+    localStorage.setItem('fodmap_week_v4', JSON.stringify(weekPlan));
+    localStorage.setItem('fodmap_shop_checked_v4', JSON.stringify(shopChecked));
+  } catch(e){}
+}
+
+// ══════════════════════════════════════════════
+// WEEK PLANNER
+// ══════════════════════════════════════════════
+function buildWeekDays(){
+  const container = document.getElementById('week-days');
+  container.innerHTML = '';
+  DAYS.forEach((day, di) => {
+    const card = document.createElement('div');
+    card.className = 'day-card';
+    card.id = `day-card-${di}`;
+
+    let dayKcal = 0;
+    MEALS.forEach(m => {
+      const slot = weekPlan[`${di}_${m}`];
+      if(slot) {
+        if(slot.isPoke && slot.pokeKcal) dayKcal += slot.pokeKcal;
+        else { const r = R.find(x=>x.id===slot.recipeId); if(r) dayKcal += r.kcal; }
+      }
+    });
+
+    card.innerHTML = `
+      <div class="day-header">
+        <span class="day-name">${day}</span>
+        <span class="day-kcal">Calorii: <span>${dayKcal > 0 ? '~'+dayKcal : '—'}</span> kcal</span>
+      </div>
+      ${MEALS.map(m => buildMealRow(di, m)).join('')}
+    `;
+    container.appendChild(card);
+  });
+  updateSummary();
+  updateHeaderStats();
+}
+
+function buildMealRow(di, mealType){
+  const slotKey = `${di}_${mealType}`;
+  const slot = weekPlan[slotKey];
+  let mealName = '', mealKcal = 0, hasSlot = false;
+  let r = null;
+
+  if(slot){
+    hasSlot = true;
+    if(slot.isPoke && slot.pokeConfig){
+      mealName = '🥢 Poke Bowl personalizat';
+      mealKcal = slot.pokeKcal || 0;
+    } else {
+      r = R.find(x=>x.id===slot.recipeId);
+      if(r){ mealName = r.emoji + ' ' + r.name; mealKcal = r.kcal; }
+    }
+  }
+
+  const expandId = `exp-${di}-${mealType}`;
+  const btnId = `expbtn-${di}-${mealType}`;
+
+  let expandHtml = '';
+  if(hasSlot && r){
+    const ingHtml = r.ingredients ? r.ingredients.map(i =>
+      `<span class="expand-ing-item">${i.n} <strong>${formatQtyPrint(i.q, i.unit)}</strong></span>`
+    ).join('') : '';
+    const stepsHtml = r.steps ? r.steps.map((s,i) =>
+      `<div class="expand-step"><div class="expand-snum">${i+1}</div><div>${s}</div></div>`
+    ).join('') : '';
+    const afNote = r.af ? `<div class="expand-af-note">🔥 <strong>Air Fryer:</strong> Preîncălzește 3 min · Tamponează carnea cu prosop</div>` : '';
+    expandHtml = `<div class="meal-recipe-expand" id="${expandId}">
+      ${ingHtml ? `<div class="expand-section-label">Ingrediente</div><div class="expand-ing">${ingHtml}</div>` : ''}
+      ${stepsHtml ? `<div class="expand-section-label">Mod de preparare</div>${stepsHtml}` : ''}
+      ${afNote}
+    </div>`;
+  } else if(hasSlot && slot.isPoke && slot.pokeConfig){
+    const cfg = slot.pokeConfig;
+    const details = [
+      cfg.base && `<span class="expand-ing-item">🍚 ${cfg.base}</span>`,
+      cfg.prot && `<span class="expand-ing-item">🥩 ${cfg.prot}</span>`,
+      cfg.dress && `<span class="expand-ing-item">🥣 ${cfg.dress}</span>`,
+      ...(cfg.veg||[]).map(v=>`<span class="expand-ing-item">🥬 ${v}</span>`),
+      ...(cfg.top||[]).map(t=>`<span class="expand-ing-item">✨ ${t}</span>`)
+    ].filter(Boolean).join('');
+    expandHtml = `<div class="meal-recipe-expand" id="${expandId}">
+      <div class="expand-section-label">Componente Poke Bowl</div>
+      <div class="expand-ing">${details}</div>
+    </div>`;
+  }
+
+  return `<div class="meal-row" style="flex-wrap:wrap">
+    <span class="meal-icon">${MEAL_ICONS[mealType]}</span>
+    <div class="meal-info" style="flex:1;min-width:0">
+      <div class="meal-label">${MEAL_LABELS[mealType]}</div>
+      <div class="meal-chosen ${!hasSlot?'empty':''}">${hasSlot ? mealName : 'Nicio rețetă aleasă'}</div>
+      ${hasSlot ? `<button class="meal-expand-btn" id="${btnId}" onclick="toggleMealExpand('${expandId}','${btnId}')">
+        Vezi rețeta <span class="arr">▼</span>
+      </button>` : ''}
+    </div>
+    ${hasSlot ? `<span class="meal-kcal-badge">~${mealKcal} kcal</span>` : ''}
+    <button class="meal-btn ${hasSlot?'set':''}" onclick="openMealPicker(${di},'${mealType}')">${hasSlot ? '✏️ Schimbă' : '+ Alege'}</button>
+  </div>${expandHtml}`;
+}
+
+function toggleMealExpand(expandId, btnId){
+  const exp = document.getElementById(expandId);
+  const btn = document.getElementById(btnId);
+  if(!exp) return;
+  const isOpen = exp.classList.toggle('open');
+  if(btn) btn.classList.toggle('open', isOpen);
+}
+
+function updateSummary(){
+  let totalKcal=0, totalMeals=0, afMeals=0;
+  Object.values(weekPlan).forEach(slot => {
+    if(!slot) return;
+    totalMeals++;
+    if(slot.isPoke){
+      totalKcal += slot.pokeKcal||0;
+      if(slot.pokeAF) afMeals++;
+    } else {
+      const r = R.find(x=>x.id===slot.recipeId);
+      if(r){ totalKcal += r.kcal; if(r.af) afMeals++; }
+    }
+  });
+  const daysPlanned = new Set(Object.keys(weekPlan).map(k=>k.split('_')[0])).size;
+  const avgKcal = daysPlanned > 0 ? Math.round(totalKcal / Math.max(daysPlanned,1)) : 0;
+
+  document.getElementById('sum-kcal').textContent = totalKcal > 0 ? totalKcal.toLocaleString() : '0';
+  document.getElementById('sum-avg').textContent = avgKcal > 0 ? '~'+avgKcal : '—';
+  document.getElementById('sum-af').textContent = afMeals;
+  document.getElementById('sum-meals').textContent = totalMeals+'/21';
+}
+
+function updateHeaderStats(){
+  let totalKcal=0, totalMeals=0, afMeals=0;
+  Object.values(weekPlan).forEach(slot => {
+    if(!slot) return;
+    totalMeals++;
+    if(slot.isPoke){ totalKcal += slot.pokeKcal||0; if(slot.pokeAF) afMeals++; }
+    else { const r=R.find(x=>x.id===slot.recipeId); if(r){ totalKcal+=r.kcal; if(r.af) afMeals++; } }
+  });
+  const daysPlanned = new Set(Object.keys(weekPlan).map(k=>k.split('_')[0])).size;
+  const avgKcal = daysPlanned>0 ? Math.round(totalKcal/Math.max(daysPlanned,1)) : 0;
+  document.getElementById('stat-kcal').textContent = totalKcal>0 ? totalKcal.toLocaleString() : '0';
+  document.getElementById('stat-meals').textContent = totalMeals;
+  document.getElementById('stat-af').textContent = afMeals;
+  document.getElementById('stat-avg').textContent = avgKcal>0 ? '~'+avgKcal : '—';
+}
+
+// ══════════════════════════════════════════════
+// MEAL PICKER MODAL
+// ══════════════════════════════════════════════
+function openMealPicker(dayIdx, mealType){
+  currentSlot = {dayIdx, mealType};
+  selectedRecipeId = null;
+  const slotKey = `${dayIdx}_${mealType}`;
+  const existing = weekPlan[slotKey];
+
+  document.getElementById('modal-title').textContent = `${DAYS[dayIdx]} — ${MEAL_LABELS[mealType]}`;
+  document.getElementById('modal-subtitle').textContent = 'Selectează o rețetă sau construiește un Poke Bowl';
+
+  const body = document.getElementById('modal-body');
+  const recipes = R.filter(r => r.cat === mealType);
+  
+  let html = '';
+  
+  // Poke bowls sunt retete standard la cina
+
+  html += `<div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t3);margin-bottom:8px">📋 Rețete ${mealType==='mic'?'Mic Dejun':mealType==='pranz'?'Prânz':'Cină'}</div>`;
+  html += `<div class="modal-recipe-list">`;
+  recipes.forEach(r => {
+    const isSelected = existing && existing.recipeId === r.id;
+    html += `<div class="modal-recipe-item ${isSelected?'selected':''}" onclick="selectRecipe('${r.id}', this)">
+      <span class="mri-emoji">${r.emoji}</span>
+      <div class="mri-info">
+        <div class="mri-name">${r.name}</div>
+        <div class="mri-meta">${r.time} ${r.af?'· 🔥 AF':''}</div>
+      </div>
+      <span class="mri-kcal">~${r.kcal} kcal</span>
+    </div>`;
+  });
+  html += `</div>`;
+  body.innerHTML = html;
+
+  const btnRemove = document.getElementById('btn-remove');
+  btnRemove.style.display = existing ? 'block' : 'none';
+  document.getElementById('btn-confirm').disabled = !existing;
+  if(existing && !existing.isPoke) selectedRecipeId = existing.recipeId;
+
+  document.getElementById('meal-modal').classList.add('open');
+  document.body.style.top = '-' + window.scrollY + 'px';
+  document.body.classList.add('modal-open');
+}
+
+function selectRecipe(id, el){
+  document.querySelectorAll('#modal-body .modal-recipe-item').forEach(e=>e.classList.remove('selected'));
+  el.classList.add('selected');
+  selectedRecipeId = id;
+  document.getElementById('btn-confirm').disabled = false;
+}
+
+// poke option removed - poke bowls are standard recipes
+
+function confirmMeal(){
+  if(!selectedRecipeId || !currentSlot) return;
+  const slotKey = `${currentSlot.dayIdx}_${currentSlot.mealType}`;
+  weekPlan[slotKey] = {recipeId: selectedRecipeId};
+  saveState();
+  buildWeekDays();
+  buildShop();
+  closeModal();
+}
+
+function removeMeal(){
+  if(!currentSlot) return;
+  const slotKey = `${currentSlot.dayIdx}_${currentSlot.mealType}`;
+  delete weekPlan[slotKey];
+  saveState();
+  buildWeekDays();
+  buildShop();
+  closeModal();
+}
+
+function closeModal(){
+  document.getElementById('meal-modal').classList.remove('open');
+  const scrollY = document.body.style.top;
+  document.body.classList.remove('modal-open');
+  document.body.style.top = '';
+  window.scrollTo(0, -parseInt(scrollY || '0'));
+  currentSlot = null; selectedRecipeId = null;
+}
+
+// ══════════════════════════════════════════════
+// POKE MODAL
+// ══════════════════════════════════════════════
+function openPokeModal(dayIdx, mealType, existing){
+  currentPokeSlot = {dayIdx, mealType};
+  pokeSelection = {base:null,prot:null,dress:null,veg:[],top:[]};
+
+  // Restore existing poke selection
+  if(existing && existing.isPoke && existing.pokeConfig){
+    pokeSelection = JSON.parse(JSON.stringify(existing.pokeConfig));
+  }
+
+  document.getElementById('poke-modal-subtitle').textContent = `${DAYS[dayIdx]} — ${MEAL_LABELS[mealType]}`;
+
+  const body = document.getElementById('poke-modal-body');
+  body.innerHTML = buildPokeModalHtml();
+
+  const btnRemove = document.getElementById('poke-btn-remove');
+  btnRemove.style.display = (existing && existing.isPoke) ? 'block' : 'none';
+
+  updatePokeConfirmBtn();
+  document.getElementById('poke-modal').classList.add('open');
+  document.body.style.top = '-' + window.scrollY + 'px';
+  document.body.classList.add('modal-open');
+}
+
+function buildPokeModalHtml(){
+  const section = (label, key, multi) => {
+    const opts = POKE_OPTIONS[key];
+    const selected = Array.isArray(pokeSelection[key]) ? pokeSelection[key] : (pokeSelection[key] ? [pokeSelection[key]] : []);
+    const btnHtml = opts.map(o => {
+      const isSel = selected.includes(o.name);
+      return `<button class="poke-opt ${isSel?'sel':''}" onclick="togglePokeOpt('${key}','${o.name}',${multi},this)">${o.name}<span style="color:var(--am);font-size:10px;margin-left:4px">+${o.kcal}</span></button>`;
+    }).join('');
+    return `<div class="poke-modal-section"><h4>${label}</h4><div class="poke-opts">${btnHtml}</div></div>`;
+  };
+
+  return section('1. 🍚 Baza (alege 1)','base',false)
+    + section('2. 🥩 Proteina (alege 1)','prot',false)
+    + section('3. 🥬 Legume (alege oricâte)','veg',true)
+    + section('4. 🥢 Dressing (alege 1)','dress',false)
+    + section('5. ✨ Topping (opțional)','top',true)
+    + `<div class="poke-kcal-preview" id="poke-kcal-preview">${calcPokeKcal()} kcal estimate</div>`;
+}
+
+function togglePokeOpt(key, name, multi, btn){
+  if(multi){
+    if(!Array.isArray(pokeSelection[key])) pokeSelection[key] = [];
+    const idx = pokeSelection[key].indexOf(name);
+    if(idx>-1){ pokeSelection[key].splice(idx,1); btn.classList.remove('sel'); }
+    else { pokeSelection[key].push(name); btn.classList.add('sel'); }
+  } else {
+    document.querySelectorAll(`#poke-modal-body .poke-modal-section`);
+    // Find all buttons in same section and deselect
+    btn.closest('.poke-modal-section').querySelectorAll('.poke-opt').forEach(b=>b.classList.remove('sel'));
+    if(pokeSelection[key] === name){ pokeSelection[key] = null; }
+    else { pokeSelection[key] = name; btn.classList.add('sel'); }
+  }
+  const preview = document.getElementById('poke-kcal-preview');
+  if(preview) preview.textContent = calcPokeKcal() + ' kcal estimate';
+  updatePokeConfirmBtn();
+}
+
+function calcPokeKcal(){
+  let kcal = 0;
+  ['base','prot','dress'].forEach(k => {
+    if(pokeSelection[k]){
+      const opt = POKE_OPTIONS[k].find(o=>o.name===pokeSelection[k]);
+      if(opt) kcal += opt.kcal;
+    }
+  });
+  ['veg','top'].forEach(k => {
+    const arr = Array.isArray(pokeSelection[k]) ? pokeSelection[k] : [];
+    arr.forEach(name => {
+      const opt = POKE_OPTIONS[k].find(o=>o.name===name);
+      if(opt) kcal += opt.kcal;
+    });
+  });
+  return '~' + kcal;
+}
+
+function getPokeKcalNum(){
+  let kcal = 0;
+  ['base','prot','dress'].forEach(k => {
+    if(pokeSelection[k]){
+      const opt = POKE_OPTIONS[k].find(o=>o.name===pokeSelection[k]);
+      if(opt) kcal += opt.kcal;
+    }
+  });
+  ['veg','top'].forEach(k => {
+    const arr = Array.isArray(pokeSelection[k]) ? pokeSelection[k] : [];
+    arr.forEach(name => {
+      const opt = POKE_OPTIONS[k].find(o=>o.name===name);
+      if(opt) kcal += opt.kcal;
+    });
+  });
+  return kcal;
+}
+
+function updatePokeConfirmBtn(){
+  const ready = pokeSelection.base && pokeSelection.prot && pokeSelection.dress;
+  document.getElementById('poke-btn-confirm').disabled = !ready;
+}
+
+function confirmPoke(){
+  if(!currentPokeSlot) return;
+  const slotKey = `${currentPokeSlot.dayIdx}_${currentPokeSlot.mealType}`;
+  const protOpt = POKE_OPTIONS.prot.find(o=>o.name===pokeSelection.prot);
+  const isAF = protOpt ? protOpt.af : false;
+  weekPlan[slotKey] = {
+    isPoke: true,
+    pokeConfig: JSON.parse(JSON.stringify(pokeSelection)),
+    pokeKcal: getPokeKcalNum(),
+    pokeAF: isAF
+  };
+  saveState();
+  buildWeekDays();
+  buildShop();
+  closePokeModal();
+}
+
+function removePokeFromDay(){
+  if(!currentPokeSlot) return;
+  const slotKey = `${currentPokeSlot.dayIdx}_${currentPokeSlot.mealType}`;
+  delete weekPlan[slotKey];
+  saveState();
+  buildWeekDays();
+  buildShop();
+  closePokeModal();
+}
+
+function closePokeModal(){
+  document.getElementById('poke-modal').classList.remove('open');
+  const scrollY = document.body.style.top;
+  document.body.classList.remove('modal-open');
+  document.body.style.top = '';
+  window.scrollTo(0, -parseInt(scrollY || '0'));
+  currentPokeSlot = null;
+}
+
+// ══════════════════════════════════════════════
+// SHOPPING LIST — DYNAMIC
+// ══════════════════════════════════════════════
+function buildShop(){
+  const container = document.getElementById('shop-content');
+  
+  // Collect all ingredients from weekPlan
+  const ingredientMap = {}; // key: "cat||name||unit" -> {cat,n,unit,q}
+  
+  function addIngredient(cat, n, q, unit){
+    const key = `${cat}||${n}||${unit}`;
+    if(ingredientMap[key]){ ingredientMap[key].q += q; }
+    else { ingredientMap[key] = {cat,n,q,unit}; }
+  }
+
+  Object.values(weekPlan).forEach(slot => {
+    if(!slot) return;
+    if(slot.isPoke && slot.pokeConfig){
+      const cfg = slot.pokeConfig;
+      ['base','prot','dress'].forEach(k => {
+        if(cfg[k]){
+          const opt = POKE_OPTIONS[k].find(o=>o.name===cfg[k]);
+          if(opt) opt.ingredients.forEach(i=>addIngredient(i.cat,i.n,i.q,i.unit));
+        }
+      });
+      ['veg','top'].forEach(k => {
+        const arr = Array.isArray(cfg[k]) ? cfg[k] : [];
+        arr.forEach(name => {
+          const opt = POKE_OPTIONS[k].find(o=>o.name===name);
+          if(opt) opt.ingredients.forEach(i=>addIngredient(i.cat,i.n,i.q,i.unit));
+        });
+      });
+    } else if(slot.recipeId){
+      const r = R.find(x=>x.id===slot.recipeId);
+      if(r && r.ingredients) r.ingredients.forEach(i=>addIngredient(i.cat,i.n,i.q,i.unit));
+    }
+  });
+
+  const items = Object.values(ingredientMap);
+
+  if(items.length === 0){
+    container.innerHTML = `<div class="shop-empty">
+      <span class="se-icon">🛒</span>
+      <p><strong>Lista e goală deocamdată!</strong><br>Planifică mesele din tab-ul <strong>📅 Plan Săptămână</strong> și ingredientele vor apărea automat aici.</p>
+    </div>`;
+    return;
+  }
+
+  // Group by category
+  const catOrder = ['🥩 Carne & Pește','🥚 Ouă','🌾 Cereale & Paste GF','🥬 Legume Proaspete','🍓 Fructe','❄️ Congelate','🥛 Băuturi Vegetale','🫒 Uleiuri & Sosuri','🌿 Mirodenii','🌱 Semințe'];
+  const grouped = {};
+  items.forEach(item => {
+    if(!grouped[item.cat]) grouped[item.cat] = [];
+    grouped[item.cat].push(item);
+  });
+
+  // Sort categories
+  const sortedCats = [...new Set([...catOrder.filter(c=>grouped[c]), ...Object.keys(grouped).filter(c=>!catOrder.includes(c))])];
+
+  let html = `<div class="shop-hrow">
+    <div style="font-size:13px;color:var(--t2)">${items.length} ingrediente din ${Object.keys(weekPlan).length} mese planificate</div>
+    <button class="sfbtn" id="sfbtn" onclick="toggleShopFilter()">Arată nebifate</button>
+  </div>`;
+
+  sortedCats.forEach((cat, ci) => {
+    const catItems = grouped[cat];
+    html += `<div class="scat" id="scat-${ci}">
+      <div class="scath">${cat}</div>`;
+    catItems.forEach((item, ii) => {
+      const key = `shop4_${cat}_${item.n}`;
+      let checked = shopChecked[key] || false;
+      const qDisplay = formatQty(item.q, item.unit);
+      html += `<div class="sitem${checked?' chk':''}" onclick="toggleShopItem(this,'${key}')">
+        <div class="scb">${checked?'✓':''}</div>
+        <span class="sit">${item.n}</span>
+        <span class="siq">${qDisplay}</span>
+      </div>`;
+    });
+    html += `<div class="sprog" id="sprog-${ci}">
+      <span class="ptxt">0/${catItems.length}</span>
+      <div class="pout"><div class="pin" style="width:0%"></div></div>
+      <span>bifate</span>
+    </div></div>`;
+  });
+
+  container.innerHTML = html;
+
+  // Update progress for each category
+  sortedCats.forEach((cat, ci) => {
+    updateShopProg(ci, grouped[cat].length, cat);
+  });
+}
+
+function formatQty(q, unit){
+  if(unit === 'g' && q >= 1000) return (q/1000).toFixed(1).replace('.0','') + ' kg';
+  if(unit === 'ml' && q >= 1000) return (q/1000).toFixed(1).replace('.0','') + ' L';
+  const rounded = Math.round(q * 10) / 10;
+  if(unit === 'lgt' || unit === 'felii' || unit === 'buc' || unit === 'leg' || unit === 'cutie' || unit === 'pungă') return rounded + ' ' + unit;
+  return rounded + (unit ? ' '+unit : '');
+}
+
+function toggleShopItem(el, key){
+  const isChk = el.classList.toggle('chk');
+  el.querySelector('.scb').textContent = isChk ? '✓' : '';
+  shopChecked[key] = isChk;
+  saveState();
+  // Find parent scat and update progress
+  const scat = el.closest('.scat');
+  if(scat){
+    const idx = scat.id.replace('scat-','');
+    const total = scat.querySelectorAll('.sitem').length;
+    updateShopProgEl(scat, total);
+  }
+  const filterOn = document.getElementById('sfbtn')?.classList.contains('on');
+  if(filterOn && isChk) el.style.display = 'none';
+}
+
+function updateShopProg(ci, total, cat){
+  const scat = document.getElementById(`scat-${ci}`);
+  if(scat) updateShopProgEl(scat, total);
+}
+
+function updateShopProgEl(scat, total){
+  const done = scat.querySelectorAll('.sitem.chk').length;
+  const ptxt = scat.querySelector('.ptxt');
+  const pin = scat.querySelector('.pin');
+  if(ptxt) ptxt.textContent = `${done}/${total}`;
+  if(pin) pin.style.width = (done/total*100)+'%';
+}
+
+let filterOn = false;
+function toggleShopFilter(){
+  filterOn = !filterOn;
+  const btn = document.getElementById('sfbtn');
+  btn.classList.toggle('on', filterOn);
+  btn.textContent = filterOn ? 'Arată toate' : 'Arată nebifate';
+  document.querySelectorAll('.sitem').forEach(it => {
+    it.style.display = filterOn && it.classList.contains('chk') ? 'none' : '';
+  });
+}
+
+// ══════════════════════════════════════════════
+// RECIPE BANK
+// ══════════════════════════════════════════════
+function buildRecipes(){
+  const grid = document.getElementById('recipe-grid');
+  R.forEach(r => {
+    const ph = r.cat==='mic'?'ph-mic':r.cat==='pranz'?'ph-pr':'ph-ci';
+    const tc = r.cat==='mic'?'rt-mic':r.cat==='pranz'?'rt-pr':'rt-ci';
+    const ti = r.cat==='mic'?'🌅 Mic Dejun':r.cat==='pranz'?'☀️ Prânz':'🌙 Cină';
+    const afB = r.af?`<div class="af-badge">🔥 AF</div>`:'';
+    const tags = r.tags.map(t=>`<span class="tag ${t.c}">${t.t}</span>`).join('');
+    const steps = r.steps.map((s,i)=>`<div class="step"><div class="snum">${i+1}</div><div class="stxt">${s}</div></div>`).join('');
+    const afBox = r.af?`<div class="af-box">🔥 <strong>Air Fryer:</strong> Preîncălzește 3 min · Tamponează carnea cu prosop</div>`:'';
+    const div = document.createElement('div');
+    div.className='rc'; div.setAttribute('data-cat',r.cat);
+    div.innerHTML=`<div class="rphoto ${ph}"><div class="rphoto-inner">${r.emoji}</div>${afB}</div>
+      <div class="rbody">
+        <div class="rtype ${tc}">${ti}${r.isPoke?' · 🥢 Poke':''}</div>
+        <div class="rname">${r.name}</div>
+        <div class="rmeta"><span class="rtime">⏱ ${r.time}</span><span class="rcal">~${r.kcal} kcal</span></div>
+        <div class="rtags">${tags}</div>
+        <div class="rtoggle" onclick="toggleRecipe(this)">🍴 Vezi rețeta completă <span class="arr">▼</span></div>
+        <div class="rsteps">${steps}${afBox}</div>
+      </div>`;
+    grid.appendChild(div);
+  });
+}
+
+function filterCat(btn,cat){
+  document.querySelectorAll('.cf').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.rc').forEach(rc=>{
+    rc.setAttribute('data-hidden', cat!=='all' && rc.getAttribute('data-cat')!==cat ? 'true':'false');
+  });
+}
+
+function toggleRecipe(el){
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('open');
+}
+
+// ══════════════════════════════════════════════
+// JOURNAL
+// ══════════════════════════════════════════════
+const jDays=['Luni','Marți','Miercuri','Joi','Vineri','Sâmbătă','Duminică'];
+const syms=['😊 Fără simptome','💨 Balonare','🤢 Crampe','🚽 Diaree','😴 Oboseală','🥴 Greață'];
+function getSymCls(s){if(s.includes('Fără'))return'sg';if(s.includes('Balonare')||s.includes('Oboseală')||s.includes('Greață'))return'sy';return'sr';}
+function buildJournal(){
+  const c=document.getElementById('journal-container');
+  jDays.forEach((day,di)=>{
+    let savedTxt='',savedSymps=[];
+    try{savedTxt=localStorage.getItem(`j4_t_${di}`)||'';savedSymps=JSON.parse(localStorage.getItem(`j4_s_${di}`)||'[]');}catch(e){}
+    const box=document.createElement('div');box.className='jday';
+    box.innerHTML=`<h4>${day}</h4><div style="font-size:11px;color:var(--t3);margin-bottom:7px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Simptome</div><div class="symrow" id="sr-${di}"></div><div style="font-size:11px;color:var(--t3);margin:10px 0 6px;font-weight:600;text-transform:uppercase;letter-spacing:.08em">Note alimentare</div><textarea class="jtxt" id="jt-${di}" placeholder="Ce ai mâncat azi? Cum te-ai simțit?">${savedTxt}</textarea><div style="display:flex;align-items:center;gap:8px"><button class="jsave" onclick="saveJ(${di})">💾 Salvează</button><span class="sok" id="so-${di}">✓ Salvat!</span></div>`;
+    c.appendChild(box);
+    const sr=box.querySelector(`#sr-${di}`);
+    syms.forEach(s=>{const btn=document.createElement('button');btn.className='sym';btn.textContent=s;if(savedSymps.includes(s))btn.classList.add(getSymCls(s));btn.addEventListener('click',function(){const cls=getSymCls(s);if(this.classList.contains(cls))this.className='sym';else this.className='sym '+cls;});sr.appendChild(btn);});
+  });
+}
+function saveJ(di){
+  const txt=document.getElementById('jt-'+di).value;
+  const sels=[...document.querySelectorAll(`#sr-${di} .sym[class*=" s"]`)].map(b=>b.textContent);
+  try{localStorage.setItem(`j4_t_${di}`,txt);localStorage.setItem(`j4_s_${di}`,JSON.stringify(sels));}catch(e){}
+  const ok=document.getElementById('so-'+di);ok.style.opacity='1';setTimeout(()=>ok.style.opacity='0',2000);
+}
+
+// ══════════════════════════════════════════════
+// REGULI
+// ══════════════════════════════════════════════
+function buildReguli(){
+  const c = document.getElementById('reguli-content');
+  const safe=['🥩 Carne slabă (pui, curcan, porc slab, somon, ton)','🥚 Ouă (orice mod de gătit)','🌾 Orez basmati, quinoa, paste GF','🥬 Morcovi, cartofi, ardei roșu, roșii cherry','🍓 Zmeură, afine, căpșuni, kiwi, portocale','🥛 Lapte de migdale neîndulcit','🫒 Ulei măsline, ulei susan, tamari GF','🌿 Ierburi: cimbru, oregano, busuioc, pătrunjel'];
+  const bad=['🧅 Ceapă și usturoi (orice formă)','🥛 Lapte, iaurt, smântână cu lactoză','🌾 Pâine/paste/cereale cu gluten','🫘 Fasole, linte, năut, mazăre','🥦 Broccoli, varză, conopidă','🍎 Mere, pere, piersici, prune, mango >80g','🌶️ Mâncare picantă','🍬 Xilitol, sorbitol, maltitol'];
+  c.innerHTML = safe.map(s=>`<div class="cg">✅ ${s}</div>`).join('') + bad.map(s=>`<div class="cr">❌ ${s}</div>`).join('');
+}
+
+// ══════════════════════════════════════════════
+// CLEAR WEEK
+// ══════════════════════════════════════════════
+function confirmClear(){
+  document.getElementById('confirm-overlay').classList.add('open');
+  document.body.style.top = '-' + window.scrollY + 'px';
+  document.body.classList.add('modal-open');
+}
+function closeConfirm(){
+  document.getElementById('confirm-overlay').classList.remove('open');
+  const scrollY = document.body.style.top;
+  document.body.classList.remove('modal-open');
+  document.body.style.top = '';
+  window.scrollTo(0, -parseInt(scrollY || '0'));
+}
+function clearWeek(){
+  weekPlan = {};
+  shopChecked = {};
+  updatePdfFab();
+  saveState();
+  buildWeekDays();
+  buildShop();
+  closeConfirm();
+}
+
+// ══════════════════════════════════════════════
+// TAB NAVIGATION
+// ══════════════════════════════════════════════
+function sw(id){
+  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tb,.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  document.querySelectorAll(`[data-tab="${id}"]`).forEach(b=>b.classList.add('active'));
+}
+document.querySelectorAll('.tb').forEach(b=>b.addEventListener('click',function(){sw(this.getAttribute('data-tab'));}));
+
+function toggleFaq(el){ el.parentElement.classList.toggle('open'); }
+
+// ══════════════════════════════════════════════
+// DARK MODE
+// ══════════════════════════════════════════════
+function toggleDark(){
+  const h=document.documentElement,d=h.getAttribute('data-theme')==='dark';
+  h.setAttribute('data-theme',d?'light':'dark');
+  document.querySelector('.dtoggle').textContent=d?'🌙':'☀️';
+  try{localStorage.setItem('theme',d?'light':'dark');}catch(e){}
+}
+try{if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.querySelector('.dtoggle').textContent='☀️';}}catch(e){}
+
+// Close modals on overlay click
+document.getElementById('meal-modal').addEventListener('click', function(e){ if(e.target===this) closeModal(); });
+document.getElementById('poke-modal').addEventListener('click', function(e){ if(e.target===this) closePokeModal(); });
+document.getElementById('confirm-overlay').addEventListener('click', function(e){ if(e.target===this) closeConfirm(); });
+
+
+// ══════════════════════════════════════════════
+// PPT GENERATION
+// ══════════════════════════════════════════════
+function updatePdfFab(){
+  const totalMeals = Object.keys(weekPlan).length;
+  const fab = document.getElementById('pdf-fab');
+  if(fab) fab.classList.toggle('visible', totalMeals > 0);
+}
+
+function formatQtyPrint(q, unit){
+  if(unit === 'g' && q >= 1000) return (q/1000).toFixed(1).replace('.0','') + ' kg';
+  if(unit === 'ml' && q >= 1000) return (q/1000).toFixed(1).replace('.0','') + ' L';
+  const rounded = Math.round(q * 10) / 10;
+  if(!unit) return String(rounded);
+  return rounded + ' ' + unit;
+}
+
+function getSlotRecipe(slot){
+  if(!slot) return null;
+  if(slot.recipeId) return R.find(x=>x.id===slot.recipeId) || null;
+  return null;
+}
+
+async function generatePPT(){
+  const fab = document.getElementById('pdf-fab');
+  const label = document.getElementById('ppt-fab-label');
+  fab.classList.add('loading');
+  label.textContent = 'Se generează...';
+
+  // Load PptxGenJS if not loaded
+  if(typeof PptxGenJS === 'undefined'){
+    await new Promise((res, rej) => {
+      const s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/pptxgenjs/3.12.0/pptxgen.bundle.js';
+      s.onload = res; s.onerror = rej;
+      document.head.appendChild(s);
+    });
+  }
+
+  const pptx = new PptxGenJS();
+  pptx.layout = 'LAYOUT_WIDE'; // 13.33 x 7.5 inches
+
+  // Colors
+  const DARK = '1e1a14';
+  const GREEN = '3d6b4a';
+  const GREEN_LIGHT = 'eaf4ee';
+  const AMBER = 'b8720a';
+  const BEJ = 'f2ede8';
+  const WHITE = 'ffffff';
+  const GRAY = '5a4e42';
+
+  // SLIDE 1: Title slide
+  const titleSlide = pptx.addSlide();
+  titleSlide.background = {color: DARK};
+  titleSlide.addText('🌿 Plan Low FODMAP', {
+    x:0.5, y:1.5, w:12.3, h:1.2,
+    fontSize:40, bold:true, color:WHITE, fontFace:'Arial',
+    align:'center'
+  });
+  titleSlide.addText('Săptămânal', {
+    x:0.5, y:2.7, w:12.3, h:0.8,
+    fontSize:30, bold:false, color:'7ec99a', fontFace:'Arial',
+    align:'center'
+  });
+  const mealsPlanned = Object.keys(weekPlan).length;
+  const totalKcalAll = Object.values(weekPlan).reduce((s,slot)=>{
+    if(!slot) return s;
+    if(slot.isPoke) return s+(slot.pokeKcal||0);
+    const r=R.find(x=>x.id===slot.recipeId); return s+(r?r.kcal:0);
+  },0);
+  titleSlide.addText(`${mealsPlanned} mese planificate · ~${totalKcalAll} kcal săptămână`, {
+    x:0.5, y:3.7, w:12.3, h:0.5,
+    fontSize:14, color:'aaaaaa', fontFace:'Arial', align:'center'
+  });
+  titleSlide.addText('SII-D · Air Fryer · Fără gluten · Fără lactoză', {
+    x:0.5, y:4.3, w:12.3, h:0.4,
+    fontSize:12, color:'888888', fontFace:'Arial', align:'center'
+  });
+
+  // SLIDES 2-8: One per day
+  DAYS.forEach((day, di) => {
+    const slide = pptx.addSlide();
+    slide.background = {color: BEJ};
+
+    // Day header bar
+    slide.addShape(pptx.ShapeType.rect, {
+      x:0, y:0, w:13.33, h:0.85,
+      fill:{color: DARK}
+    });
+
+    // Day name
+    const dayMeals = MEALS.map(m => ({
+      type: m,
+      slot: weekPlan[`${di}_${m}`] || null
+    }));
+    let dayKcal = 0;
+    dayMeals.forEach(({slot}) => {
+      if(!slot) return;
+      if(slot.isPoke) dayKcal += slot.pokeKcal||0;
+      else { const r=R.find(x=>x.id===slot.recipeId); if(r) dayKcal+=r.kcal; }
+    });
+
+    slide.addText(day, {
+      x:0.3, y:0.05, w:8, h:0.75,
+      fontSize:26, bold:true, color:WHITE, fontFace:'Arial', valign:'middle'
+    });
+    if(dayKcal > 0){
+      slide.addText(`~${dayKcal} kcal`, {
+        x:9, y:0.05, w:4, h:0.75,
+        fontSize:14, color:'7ec99a', fontFace:'Arial', valign:'middle', align:'right'
+      });
+    }
+
+    // 3 meal sections
+    const mealColors = {mic: 'fff8e8', pranz: 'eaf4ee', cina: 'eef0fa'};
+    const mealBorderColors = {mic: 'f5c842', pranz: '3d6b4a', cina: '3d6b80'};
+    const mealTitles = {mic:'🌅 Mic Dejun', pranz:'☀️ Prânz', cina:'🌙 Cină'};
+
+    dayMeals.forEach(({type, slot}, mi) => {
+      const yBase = 1.0 + mi * 2.1;
+      const r = slot ? getSlotRecipe(slot) : null;
+      const mealName = slot ? (slot.isPoke ? '🥢 Poke Bowl personalizat' : (r ? r.emoji+' '+r.name : '—')) : '—';
+      const mealKcal = slot ? (slot.isPoke ? slot.pokeKcal||0 : (r?r.kcal:0)) : 0;
+
+      // Meal card background
+      slide.addShape(pptx.ShapeType.rect, {
+        x:0.2, y:yBase, w:12.93, h:1.95,
+        fill:{color: slot ? mealColors[type] : 'f8f5f0'},
+        line:{color: mealBorderColors[type], width:1.5},
+        rectRadius:0.1
+      });
+
+      // Meal type label
+      slide.addText(mealTitles[type], {
+        x:0.4, y:yBase+0.08, w:4, h:0.3,
+        fontSize:9, bold:true, color:GRAY, fontFace:'Arial',
+        charSpacing:1
+      });
+
+      if(slot && (r || slot.isPoke)){
+        // kcal badge
+        slide.addText(`~${mealKcal} kcal`, {
+          x:10, y:yBase+0.06, w:2.9, h:0.28,
+          fontSize:10, bold:true, color:AMBER, fontFace:'Arial', align:'right'
+        });
+
+        // Meal name
+        slide.addText(mealName, {
+          x:0.4, y:yBase+0.38, w:12.4, h:0.45,
+          fontSize:15, bold:true, color:DARK, fontFace:'Arial'
+        });
+
+        if(r){
+          // Time
+          slide.addText(`⏱ ${r.time}${r.af?' · 🔥 Air Fryer':''}`, {
+            x:0.4, y:yBase+0.82, w:6, h:0.25,
+            fontSize:10, color:GRAY, fontFace:'Arial'
+          });
+
+          // Steps condensed
+          const stepsText = r.steps.map((s,i) => `${i+1}. ${s.replace(/<[^>]+>/g,'')}`).join('  ').substring(0,280);
+          slide.addText(stepsText + (stepsText.length>=280?'…':''), {
+            x:0.4, y:yBase+1.1, w:12.4, h:0.7,
+            fontSize:8.5, color:GRAY, fontFace:'Arial',
+            wrap:true, valign:'top'
+          });
+        } else if(slot.isPoke && slot.pokeConfig){
+          const cfg = slot.pokeConfig;
+          const details = [cfg.base, cfg.prot, cfg.dress, ...(cfg.veg||[]), ...(cfg.top||[])].filter(Boolean).join(' · ');
+          slide.addText(details, {
+            x:0.4, y:yBase+0.82, w:12.4, h:0.95,
+            fontSize:9, color:GRAY, fontFace:'Arial', wrap:true
+          });
+        }
+      } else {
+        slide.addText('Nicio rețetă aleasă', {
+          x:0.4, y:yBase+0.55, w:12, h:0.4,
+          fontSize:13, color:'aaaaaa', fontFace:'Arial', italic:true
+        });
+      }
+    });
+  });
+
+  // SLIDES: Recipe detail slides (one per unique recipe)
+  const usedIds = new Set();
+  Object.values(weekPlan).forEach(slot => {
+    if(slot && slot.recipeId) usedIds.add(slot.recipeId);
+  });
+
+  if(usedIds.size > 0){
+    // Section header slide
+    const secSlide = pptx.addSlide();
+    secSlide.background = {color: GREEN};
+    secSlide.addText('🍴 Rețete Detaliate', {
+      x:0.5, y:2.8, w:12.3, h:1.2,
+      fontSize:36, bold:true, color:WHITE, fontFace:'Arial', align:'center'
+    });
+    secSlide.addText('Mod de preparare pentru fiecare rețetă din planul tău', {
+      x:0.5, y:4.0, w:12.3, h:0.5,
+      fontSize:14, color:GREEN_LIGHT, fontFace:'Arial', align:'center'
+    });
+
+    usedIds.forEach(id => {
+      const r = R.find(x=>x.id===id);
+      if(!r) return;
+      const rSlide = pptx.addSlide();
+      rSlide.background = {color:WHITE};
+
+      // Header bar
+      const hColor = r.cat==='mic' ? 'b8720a' : r.cat==='pranz' ? GREEN : '2d5f80';
+      rSlide.addShape(pptx.ShapeType.rect, {
+        x:0, y:0, w:13.33, h:1.0, fill:{color: hColor}
+      });
+
+      const catLabel = r.cat==='mic'?'🌅 Mic Dejun':r.cat==='pranz'?'☀️ Prânz':'🌙 Cină';
+      rSlide.addText(catLabel, {
+        x:0.3, y:0.05, w:4, h:0.35,
+        fontSize:9, bold:true, color:WHITE, fontFace:'Arial', charSpacing:1
+      });
+      rSlide.addText(r.emoji+' '+r.name, {
+        x:0.3, y:0.38, w:10, h:0.55,
+        fontSize:18, bold:true, color:WHITE, fontFace:'Arial', valign:'middle'
+      });
+      rSlide.addText(`~${r.kcal} kcal · ⏱ ${r.time}${r.af?' · 🔥 AF':''}`, {
+        x:0.3, y:0.9, w:12.7, h:0.3,
+        fontSize:10, color:WHITE+'aa', fontFace:'Arial'
+      });
+
+      // Ingredients
+      if(r.ingredients && r.ingredients.length > 0){
+        rSlide.addText('📦 Ingrediente (1 porție)', {
+          x:0.3, y:1.35, w:5.5, h:0.3,
+          fontSize:10, bold:true, color:GREEN, fontFace:'Arial'
+        });
+        const ingRows = r.ingredients.map(i => [
+          {text: i.n, options:{color:DARK, fontSize:9.5}},
+          {text: formatQtyPrint(i.q, i.unit), options:{color:GREEN, fontSize:9.5, bold:true}}
+        ]);
+        rSlide.addTable(ingRows, {
+          x:0.3, y:1.68, w:5.5,
+          colW:[3.8, 1.7],
+          border:{color:'e8e0d6', pt:0.5},
+          fill:{color:BEJ},
+          fontSize:9.5, fontFace:'Arial',
+          rowH:0.28
+        });
+      }
+
+      // Steps
+      if(r.steps && r.steps.length > 0){
+        rSlide.addText('👨‍🍳 Mod de preparare', {
+          x:6.2, y:1.35, w:6.8, h:0.3,
+          fontSize:10, bold:true, color:GREEN, fontFace:'Arial'
+        });
+        r.steps.forEach((step, si) => {
+          const yStep = 1.68 + si * 0.75;
+          if(yStep > 6.8) return; // prevent overflow
+          rSlide.addShape(pptx.ShapeType.ellipse, {
+            x:6.2, y:yStep+0.05, w:0.28, h:0.28,
+            fill:{color:hColor}, line:{color:hColor}
+          });
+          rSlide.addText(String(si+1), {
+            x:6.2, y:yStep+0.05, w:0.28, h:0.28,
+            fontSize:8, bold:true, color:WHITE, fontFace:'Arial',
+            align:'center', valign:'middle'
+          });
+          rSlide.addText(step.replace(/<[^>]+>/g,''), {
+            x:6.6, y:yStep, w:6.5, h:0.72,
+            fontSize:9.5, color:GRAY, fontFace:'Arial',
+            wrap:true, valign:'top'
+          });
+        });
+
+        if(r.af){
+          const afY = 1.68 + r.steps.length * 0.75;
+          if(afY < 7.0){
+            rSlide.addShape(pptx.ShapeType.rect, {
+              x:6.2, y:Math.min(afY, 6.5), w:6.8, h:0.45,
+              fill:{color:DARK}, line:{color:DARK}, rectRadius:0.05
+            });
+            rSlide.addText('🔥 Air Fryer: Preîncălzește 3 min · Tamponează carnea cu prosop înainte', {
+              x:6.3, y:Math.min(afY, 6.5)+0.05, w:6.6, h:0.35,
+              fontSize:8.5, color:'7ec99a', fontFace:'Arial', bold:true
+            });
+          }
+        }
+      }
+    });
+  }
+
+  // Generate file and create download page
+  const pptBlob = await pptx.write({outputType:'blob'});
+  buildDownloadPage(pptBlob);
+
+  fab.classList.remove('loading');
+  label.textContent = 'Generează PowerPoint';
+}
+
+function buildDownloadPage(blob){
+  // Remove existing download section
+  const old = document.getElementById('ppt-download-section');
+  if(old) old.remove();
+
+  const url = URL.createObjectURL(blob);
+  const now = new Date();
+  const dateStr = `${now.getDate()}.${now.getMonth()+1}.${now.getFullYear()}`;
+  const mealsPlanned = Object.keys(weekPlan).length;
+
+  const section = document.createElement('div');
+  section.id = 'ppt-download-section';
+  section.style.cssText = `
+    position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);
+    z-index:900;background:var(--card);border-radius:20px;
+    padding:28px 24px;max-width:380px;width:calc(100% - 40px);
+    box-shadow:0 20px 60px rgba(0,0,0,.3);text-align:center;
+    border:1px solid var(--brd);
+  `;
+  section.innerHTML = `
+    <div style="font-size:48px;margin-bottom:12px">📊</div>
+    <div style="font-family:'Lora',serif;font-size:19px;font-weight:700;color:var(--text);margin-bottom:6px">PowerPoint gata!</div>
+    <div style="font-size:13px;color:var(--t2);margin-bottom:20px;line-height:1.6">
+      ${mealsPlanned} mese planificate · ${dateStr}<br>
+      <span style="font-size:11px;color:var(--t3)">Fiecare zi are propriul slide cu mesele și rețetele complete</span>
+    </div>
+    <a href="${url}" download="Plan_FODMAP_${dateStr}.pptx" 
+       style="display:flex;align-items:center;justify-content:center;gap:8px;
+              background:var(--g);color:#fff;border-radius:12px;
+              padding:14px 20px;font-size:15px;font-weight:700;
+              text-decoration:none;font-family:'DM Sans',sans-serif;margin-bottom:12px;
+              box-shadow:0 4px 16px rgba(61,107,74,.35)">
+      ⬇️ Descarcă Plan_FODMAP_${dateStr}.pptx
+    </a>
+    <button onclick="document.getElementById('ppt-download-section').remove()"
+            style="background:var(--bej-d);border:1px solid var(--brd);border-radius:10px;
+                   padding:10px 20px;font-size:13px;font-weight:600;cursor:pointer;
+                   color:var(--t2);font-family:'DM Sans',sans-serif;width:100%">
+      Închide
+    </button>
+  `;
+
+  // Backdrop
+  const backdrop = document.createElement('div');
+  backdrop.id = 'ppt-backdrop';
+  backdrop.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:899;backdrop-filter:blur(4px)';
+  backdrop.onclick = () => { section.remove(); backdrop.remove(); };
+  document.body.appendChild(backdrop);
+  document.body.appendChild(section);
+}
+
+function buildPrintRecipes(){
+  // Remove existing print section if any
+  const old = document.getElementById('print-recipes-section');
+  if(old) old.remove();
+
+  // Collect unique recipe ids from plan
+  const recipeIds = new Set();
+  Object.values(weekPlan).forEach(slot => {
+    if(slot && slot.recipeId) recipeIds.add(slot.recipeId);
+  });
+
+  if(recipeIds.size === 0) return;
+
+  const section = document.createElement('div');
+  section.id = 'print-recipes-section';
+  section.className = 'print-recipes no-print';
+  section.innerHTML = '<div class="print-section-title">🍴 Rețete Detaliate</div>';
+
+  recipeIds.forEach(id => {
+    const r = R.find(x => x.id === id);
+    if(!r) return;
+
+    // Ingredients table
+    const ingHtml = r.ingredients ? r.ingredients.map(i =>
+      `<div class="print-ing-item"><span>${i.n}</span><strong>${formatQtyPrint(i.q, i.unit)}</strong></div>`
+    ).join('') : '';
+
+    // Steps
+    const stepsHtml = r.steps ? r.steps.map((s,idx) =>
+      `<li>${s}</li>`
+    ).join('') : '';
+
+    const afNote = r.af ? `<div class="print-af-note">🔥 <strong>Air Fryer:</strong> Preîncălzește 3 min · Tamponează carnea cu prosop de hârtie înainte</div>` : '';
+
+    const catLabel = r.cat==='mic' ? '🌅 Mic Dejun' : r.cat==='pranz' ? '☀️ Prânz' : '🌙 Cină';
+
+    const card = document.createElement('div');
+    card.className = 'print-recipe-card';
+    card.innerHTML = `
+      <div class="print-recipe-title">${r.emoji} ${r.name}</div>
+      <div class="print-recipe-meta">
+        <span>${catLabel}</span>
+        <span class="kcal-badge">🔥 ~${r.kcal} kcal</span>
+        <span>⏱ ${r.time}</span>
+        ${r.af ? '<span>🔥 Air Fryer</span>' : ''}
+      </div>
+      ${r.ingredients && r.ingredients.length > 0 ? `
+      <div class="print-ingredients">
+        <h4>📦 Ingrediente (1 porție)</h4>
+        <div class="print-ing-grid">${ingHtml}</div>
+      </div>` : ''}
+      ${r.steps && r.steps.length > 0 ? `
+      <div class="print-steps">
+        <h4>👨‍🍳 Mod de preparare</h4>
+        <ol>${stepsHtml}</ol>
+      </div>` : ''}
+      ${afNote}
+    `;
+    section.appendChild(card);
+  });
+
+  // Insert after week-days container
+  const main = document.querySelector('main');
+  if(main) main.appendChild(section);
+}
+
+function buildPrintShop(){
+  const old = document.getElementById('print-shop-section');
+  if(old) old.remove();
+
+  // Reuse ingredient aggregation from buildShop
+  const ingredientMap = {};
+  function addIng(cat, n, q, unit){
+    const key = cat+'||'+n+'||'+unit;
+    if(ingredientMap[key]) ingredientMap[key].q += q;
+    else ingredientMap[key] = {cat,n,q,unit};
+  }
+
+  Object.values(weekPlan).forEach(slot => {
+    if(!slot) return;
+    if(slot.isPoke && slot.pokeConfig){
+      const cfg = slot.pokeConfig;
+      ['base','prot','dress'].forEach(k => {
+        if(cfg[k]){ const opt=POKE_OPTIONS[k].find(o=>o.name===cfg[k]); if(opt) opt.ingredients.forEach(i=>addIng(i.cat,i.n,i.q,i.unit)); }
+      });
+      ['veg','top'].forEach(k => {
+        const arr=Array.isArray(cfg[k])?cfg[k]:[];
+        arr.forEach(name=>{ const opt=POKE_OPTIONS[k].find(o=>o.name===name); if(opt) opt.ingredients.forEach(i=>addIng(i.cat,i.n,i.q,i.unit)); });
+      });
+    } else if(slot.recipeId){
+      const r=R.find(x=>x.id===slot.recipeId);
+      if(r && r.ingredients) r.ingredients.forEach(i=>addIng(i.cat,i.n,i.q,i.unit));
+    }
+  });
+
+  const items = Object.values(ingredientMap);
+  if(items.length === 0) return;
+
+  const catOrder = ['🥩 Carne & Pește','🥚 Ouă','🌾 Cereale & Paste GF','🥬 Legume Proaspete','🍓 Fructe','❄️ Congelate','🥛 Băuturi Vegetale','🫒 Uleiuri & Sosuri','🌿 Mirodenii','🌱 Semințe'];
+  const grouped = {};
+  items.forEach(item => { if(!grouped[item.cat]) grouped[item.cat]=[]; grouped[item.cat].push(item); });
+  const sortedCats = [...new Set([...catOrder.filter(c=>grouped[c]),...Object.keys(grouped).filter(c=>!catOrder.includes(c))])];
+
+  const section = document.createElement('div');
+  section.id = 'print-shop-section';
+  section.className = 'print-shop no-print';
+
+  let html = `<div class="print-shop-title">🛒 Listă de Cumpărături (${items.length} ingrediente)</div>`;
+
+  sortedCats.forEach(cat => {
+    const catItems = grouped[cat];
+    html += `<div class="print-shop-cat">
+      <div class="print-shop-cat-title">${cat}</div>
+      <div class="print-shop-grid">`;
+    catItems.forEach(item => {
+      html += `<div class="print-shop-item"><span>${item.n}</span><span class="print-shop-qty">${formatQtyPrint(item.q, item.unit)}</span></div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  section.innerHTML = html;
+  const main = document.querySelector('main');
+  if(main) main.appendChild(section);
+}
+
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
+loadState();
+buildWeekDays();
+updatePdfFab();
+buildShop();
+buildRecipes();
+buildJournal();
+buildReguli();
+
+// ══════════════════════════════════════════════
+// PWA — iOS INSTALL BANNER
+// ══════════════════════════════════════════════
+function isIOS(){
+  return /iphone|ipad|ipod/i.test(navigator.userAgent);
+}
+function isInStandaloneMode(){
+  return window.navigator.standalone === true ||
+         window.matchMedia('(display-mode: standalone)').matches;
+}
+function dismissInstallBanner(){
+  document.getElementById('ios-banner').classList.add('hidden');
+  try { localStorage.setItem('pwa_banner_dismissed','1'); } catch(e){}
+}
+
+// Show iOS install banner only on iOS Safari, not in standalone mode, not dismissed
+(function initInstallBanner(){
+  try {
+    if(localStorage.getItem('pwa_banner_dismissed') === '1') return;
+  } catch(e){}
+  if(isIOS() && !isInStandaloneMode()){
+    setTimeout(() => {
+      const banner = document.getElementById('ios-banner');
+      if(banner) banner.classList.remove('hidden');
+    }, 2500);
+  }
+})();
+
+// ── Service Worker (inline, for offline caching) ──
+if('serviceWorker' in navigator){
+  const swCode = `
+const CACHE = 'fodmap-v1';
+const PRECACHE = [
+  'https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap'
+];
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(CACHE).then(c => c.addAll(PRECACHE).catch(()=>{})).then(()=>self.skipWaiting()));
+});
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));
+});
+self.addEventListener('fetch', e => {
+  if(e.request.method !== 'GET') return;
+  e.respondWith(
+    caches.match(e.request).then(cached => {
+      if(cached) return cached;
+      return fetch(e.request).then(resp => {
+        if(resp && resp.status === 200 && e.request.url.startsWith('https://fonts.')){
+          const clone = resp.clone();
+          caches.open(CACHE).then(c => c.put(e.request, clone));
+        }
+        return resp;
+      }).catch(() => cached);
+    })
+  );
+});
+`;
+  const blob = new Blob([swCode], {type:'application/javascript'});
+  const swUrl = URL.createObjectURL(blob);
+  navigator.serviceWorker.register(swUrl).catch(()=>{});
+}
+</script>
+</body>
+</html>
